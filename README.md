@@ -33,4 +33,37 @@ getFamily(form="ism",type="SUF")
 ##  9       Anglicanism_N
 ## 10 Anglo-Catholicism_N
 ## # ... with 221 more rows
+getFamily(form="think",type="V")
+## # A tibble: 16 x 1
+##               fpos
+##              <chr>
+##  1       bethink_V
+##  2   doublethink_N
+##  3   freethinker_N
+##  4       rethink_N
+##  5       rethink_V
+##  6         think_N
+##  7         think_V
+##  8     thinkable_A
+##  9       thinker_N
+## 10      think of_V
+## 11     think out_V
+## 12    think over_V
+## 13    think-tank_N
+## 14 think through_V
+## 15      think up_V
+## 16   unthinkable_A
 ```
+
+Age-of-acquisition
+
+``` r
+lexvarsdatr::lingBehavData %>%
+  filter(!is.na(aoaRating)) %>%
+  arrange(aoaRating)%>%
+  mutate(cum = row_number())%>%
+  ggplot(aes(x=aoaRating, y = cum)) +
+  geom_line()
+```
+
+![](README-unnamed-chunk-4-1.png)

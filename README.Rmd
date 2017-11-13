@@ -37,5 +37,17 @@ library(lexvarsdatr)
 
 ```{r}
 getFamily(form="ism",type="SUF")
+getFamily(form="think",type="V")
 ```
+
+Age-of-acquisition
+```{r}
+lexvarsdatr::lingBehavData %>%
+  filter(!is.na(aoaRating)) %>%
+  arrange(aoaRating)%>%
+  mutate(cum = row_number())%>%
+  ggplot(aes(x=aoaRating, y = cum)) +
+  geom_line()
+```
+
 
