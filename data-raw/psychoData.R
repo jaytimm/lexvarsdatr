@@ -25,10 +25,13 @@ lexdec <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdat
   select(Word,Pron,NMorph,POS,I_Mean_RT,I_SD,I_NMG_Mean_RT,I_NMG_SD)%>%
   rename(lexdecRT=I_Mean_RT, lexdecSD=I_SD,nmgRT = I_NMG_Mean_RT, nmgSD=I_NMG_SD)
 
-full1 <- full_join(lexdec,aoa)%>%
+lingBehavData <- full_join(lexdec,aoa)%>%
   full_join(conc)
 
-full2 <- full1 %>%
-  filter(complete.cases(.))
+#full2 <- full1 %>%
+#  filter(complete.cases(.))
+
 
 ##Output
+devtools::use_data(lingBehavData, overwrite=TRUE)
+
