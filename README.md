@@ -18,21 +18,6 @@ library(lexvarsdatr)
 ```
 
 ``` r
-getFamily(form="ism",type="SUF")
-## # A tibble: 231 x 1
-##                   fpos
-##                  <chr>
-##  1       absenteeism_N
-##  2        absolutism_N
-##  3       agnosticism_N
-##  4        alcoholism_N
-##  5          alpinism_N
-##  6        amateurism_N
-##  7       Americanism_N
-##  8         anarchism_N
-##  9       Anglicanism_N
-## 10 Anglo-Catholicism_N
-## # ... with 221 more rows
 getFamily(form="think",type="V")
 ## # A tibble: 16 x 1
 ##               fpos
