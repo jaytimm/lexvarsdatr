@@ -36,7 +36,6 @@ library(lexvarsdatr)
 
 
 ```{r}
-getFamily(form="ism",type="SUF")
 getFamily(form="think",type="V")
 ```
 
