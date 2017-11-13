@@ -25,3 +25,11 @@ Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). Age-of-acquisitio
 Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South Florida free association, rhyme, and word fragment norms. *Behavior Research Methods, Instruments, & Computers*, 36(3), 402-407.
 
 
+
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(tidyverse)
+#devtools::install_github("jaytimm/corpuslingr")
+library(corpuslingr)
+```
+
