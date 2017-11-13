@@ -1,5 +1,6 @@
 #Build CELEX
 
+library(tidyverse)
 celex <- read.csv("C:\\Users\\jtimm\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\celex_Baayen_et_al_1995.csv")%>%
   mutate_all(as.character)
 
