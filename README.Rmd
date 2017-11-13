@@ -14,6 +14,8 @@ knitr::opts_chunk$set(
 
 ##lexvarsdatr: 
 
+Data included in package:
+
 Baayen, R. H., Piepenbrock, R., & Gulikers, L. (1995). The CELEX lexical database [webcelex]. *Philadelphia, PA: University of Pennsylvania, Linguistic Data Consortium*.
 
 Balota, D. A., Yap, M. J., Hutchison, K. A., Cortese, M. J., Kessler, B., Loftis, B., ... & Treiman, R. (2007). The English lexicon project. *Behavior research methods*, 39(3), 445-459.
@@ -36,7 +38,9 @@ library(lexvarsdatr)
 
 
 ```{r}
-getFamily(form="think",type="V")
+lexvarsdatr::getFamily(form="think",type="V") %>%
+  unlist()%>%
+  paste()
 ```
 
 Age-of-acquisition

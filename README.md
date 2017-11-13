@@ -1,6 +1,8 @@
 lexvarsdatr:
 ------------
 
+Data included in package:
+
 Baayen, R. H., Piepenbrock, R., & Gulikers, L. (1995). The CELEX lexical database \[webcelex\]. *Philadelphia, PA: University of Pennsylvania, Linguistic Data Consortium*.
 
 Balota, D. A., Yap, M. J., Hutchison, K. A., Cortese, M. J., Kessler, B., Loftis, B., ... & Treiman, R. (2007). The English lexicon project. *Behavior research methods*, 39(3), 445-459.
@@ -18,26 +20,15 @@ library(lexvarsdatr)
 ```
 
 ``` r
-getFamily(form="think",type="V")
-## # A tibble: 16 x 1
-##               fpos
-##              <chr>
-##  1       bethink_V
-##  2   doublethink_N
-##  3   freethinker_N
-##  4       rethink_N
-##  5       rethink_V
-##  6         think_N
-##  7         think_V
-##  8     thinkable_A
-##  9       thinker_N
-## 10      think of_V
-## 11     think out_V
-## 12    think over_V
-## 13    think-tank_N
-## 14 think through_V
-## 15      think up_V
-## 16   unthinkable_A
+lexvarsdatr::getFamily(form="think",type="V") %>%
+  unlist()%>%
+  paste()
+##  [1] "bethink_V"       "doublethink_N"   "freethinker_N"  
+##  [4] "rethink_N"       "rethink_V"       "think_N"        
+##  [7] "think_V"         "thinkable_A"     "thinker_N"      
+## [10] "think of_V"      "think out_V"     "think over_V"   
+## [13] "think-tank_N"    "think through_V" "think up_V"     
+## [16] "unthinkable_A"
 ```
 
 Age-of-acquisition
