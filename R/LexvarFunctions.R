@@ -13,16 +13,16 @@
 #' @rdname LexvarFunctions
 getFamily <- function (form,type) {
   if (type == "SUF"){#Not sure if this is correct. contains, not ends with.
-    newcelex %>%
+    CELEX %>%
       filter(flatlist==form)%>%
       filter(.,grepl(paste(form,"$",sep=""),Word))%>%
       select(fpos)
     } else if (type == "PRE") {
-      newcelex %>%
+      CELEX %>%
         filter(flatlist== form)%>%
         select(fpos)
     } else {
-    newcelex %>%
+    CELEX %>%
       filter(flatlist == paste(form,"[",type,"]",sep=""))%>%
       select(fpos)
     }

@@ -1,6 +1,6 @@
 #Build CELEX
 
-celex <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\celex_Baayen_et_al_1995.csv")%>%
+celex <- read.csv("C:\\Users\\jtimm\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\celex_Baayen_et_al_1995.csv")%>%
   mutate_all(as.character)
 
 
@@ -55,7 +55,12 @@ affTypes <- table(affs$classlist,affs$flatlist)%>%
   rename(flatlist=Var2)%>%
   select(-PRE,-SUF)
 
-lastcelex <- newcelex%>%
+CELEX <- newcelex%>%
   left_join(affTypes)%>%
   mutate(classlist = ifelse(classlist=="PRE"|classlist=="SUF",type,classlist))%>%
   select(-type)
+
+#Output
+devtools::use_data(CELEX, overwrite=TRUE)
+
+
