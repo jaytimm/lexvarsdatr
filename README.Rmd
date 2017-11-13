@@ -1,5 +1,18 @@
-lexvarsdatr:
-------------
+
+---
+output:
+  md_document:
+    variant: markdown_github
+---
+
+```{r, echo = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "##",
+  fig.path = "README-")
+```
+
+##lexvarsdatr: 
 
 Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). Age-of-acquisition ratings for 30,000 English words. *Behavior Research Methods*, 44(4), 978-990.
 
@@ -9,4 +22,4 @@ Brysbaert, M., Warriner, A. B., & Kuperman, V. (2014). Concreteness ratings for 
 
 Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South Florida free association, rhyme, and word fragment norms. *Behavior Research Methods, Instruments, & Computers*, 36(3), 402-407.
 
-Baayen, R. H., Piepenbrock, R., & Gulikers, L. (1995). The CELEX lexical database \[webcelex\]. *Philadelphia, PA: University of Pennsylvania, Linguistic Data Consortium*.
+Baayen, R. H., Piepenbrock, R., & Gulikers, L. (1995). The CELEX lexical database [webcelex]. *Philadelphia, PA: University of Pennsylvania, Linguistic Data Consortium*.
