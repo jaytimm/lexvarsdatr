@@ -31,18 +31,19 @@ Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(tidyverse)
-devtools::install_github("jaytimm/lexvarsdatr")
+#devtools::install_github("jaytimm/lexvarsdatr")
 library(lexvarsdatr)
 ```
 
 
-
+##CELEX functions
 ```{r}
 lexvarsdatr::getFamily(form="think",type="V") %>%
   unlist()%>%
   paste()
 ```
 
+##Behavioral data
 Age-of-acquisition
 ```{r}
 lexvarsdatr::lingBehavData %>%
@@ -51,6 +52,15 @@ lexvarsdatr::lingBehavData %>%
   mutate(cum = row_number())%>%
   ggplot(aes(x=aoaRating, y = cum)) +
   geom_line()
+```
+
+
+```{r}
+lexvarsdatr::lingBehavData %>%
+  filter(concRating > 4.5, aoaRating > 15)%>%
+  select(Word)%>%
+  unlist()%>%
+  paste()
 ```
 
 

@@ -15,9 +15,12 @@ Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South
 
 ``` r
 library(tidyverse)
-devtools::install_github("jaytimm/lexvarsdatr")
+#devtools::install_github("jaytimm/lexvarsdatr")
 library(lexvarsdatr)
 ```
+
+CELEX functions
+---------------
 
 ``` r
 lexvarsdatr::getFamily(form="think",type="V") %>%
@@ -31,6 +34,9 @@ lexvarsdatr::getFamily(form="think",type="V") %>%
 ## [16] "unthinkable_A"
 ```
 
+Behavioral data
+---------------
+
 Age-of-acquisition
 
 ``` r
@@ -43,3 +49,16 @@ lexvarsdatr::lingBehavData %>%
 ```
 
 ![](README-unnamed-chunk-4-1.png)
+
+``` r
+lexvarsdatr::lingBehavData %>%
+  filter(concRating > 4.5, aoaRating > 15)%>%
+  select(Word)%>%
+  unlist()%>%
+  paste()
+##  [1] "podiatrist"      "persimmon"       "oscilloscope"   
+##  [4] "daiquiri"        "biophysicist"    "meth"           
+##  [7] "dildo"           "chardonnay"      "defibrillator"  
+## [10] "methamphetamine" "fluoroscope"     "webcam"         
+## [13] "barista"         "hookah"
+```
