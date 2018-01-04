@@ -31,3 +31,12 @@ getFamily <- function (form,type) {
 #' getFamily(form="ism",type="SUF")
 #' getFamily(form="inter",type="PRE")
 #' View(getFamily(form="glass",type="N"))
+#'
+
+
+#' @export
+#' @rdname LexvarFunctions
+toCQL <- function(x){
+  gsub('(\\w+) ([[:alpha:]]+)(_[A-Z])','<\\1&\\3x> <\\2\\!>',x)%>%
+    gsub('(^[a-zA-Z-]+)(_[A-Z])','<\\1&\\2x>',.)%>%
+    gsub('_Ax','_Jx',.)}
