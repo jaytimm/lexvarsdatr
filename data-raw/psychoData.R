@@ -25,12 +25,15 @@ lexdec <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdat
   select(Word,Pron,NMorph,POS,I_Mean_RT,I_SD,I_NMG_Mean_RT,I_NMG_SD)%>%
   rename(lexdecRT=I_Mean_RT, lexdecSD=I_SD,nmgRT = I_NMG_Mean_RT, nmgSD=I_NMG_SD)
 
-lingBehavData <- full_join(lexdec,aoa)%>%
+lvdr_behav_data <- full_join(lexdec,aoa)%>%
   full_join(conc)
 
 #full2 <- full1 %>%
 #  filter(complete.cases(.))
 
+#Not sure how we want to structure this.? A single df, multiple, a list of dfs.
+
+#Also brings us to the issue of conventions across data sets.  We may to homogenize some. ? Joining accomplishes some.  CITATIONS.
 
 ##Output
 devtools::use_data(lingBehavData, overwrite=TRUE)
