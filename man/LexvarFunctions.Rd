@@ -2,10 +2,13 @@
 % Please edit documentation in R/LexvarFunctions.R
 \name{LexvarFunctions}
 \alias{LexvarFunctions}
-\alias{getFamily}
+\alias{lvdr_get_family}
+\alias{lvdr_set_cql}
 \title{Query CELEX database}
 \usage{
-getFamily(form, type)
+lvdr_get_family(form, type)
+
+lvdr_set_cql(x)
 }
 \arguments{
 \item{form}{A word or affix}
@@ -17,4 +20,8 @@ A data.frame
 }
 \description{
 These functions make life easier when querying the behavioral datasets.
+
+getFamily(form="ism",type="SUF")
+getFamily(form="inter",type="PRE")
+View(getFamily(form="glass",type="N"))
 }

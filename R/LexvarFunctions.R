@@ -8,21 +8,22 @@
 #' @return A data.frame
 #' @import tidyverse
 
+#Need to kill tidy dependency.
 
 #' @export
 #' @rdname LexvarFunctions
-getFamily <- function (form,type) {
+lvdr_get_family <- function (form,type) {
   if (type == "SUF"){#Not sure if this is correct. contains, not ends with.
-    CELEX %>%
+    lvdr_celex %>%
       filter(flatlist==form)%>%
       filter(.,grepl(paste(form,"$",sep=""),Word))%>%
       select(fpos)
     } else if (type == "PRE") {
-      CELEX %>%
+      lvdr_celex %>%
         filter(flatlist== form)%>%
         select(fpos)
     } else {
-    CELEX %>%
+    lvdr_celex %>%
       filter(flatlist == paste(form,"[",type,"]",sep=""))%>%
       select(fpos)
     }
@@ -36,7 +37,7 @@ getFamily <- function (form,type) {
 
 #' @export
 #' @rdname LexvarFunctions
-toCQL <- function(x){
+lvdr_set_cql <- function(x){
   gsub('(\\w+) ([[:alpha:]]+)(_[A-Z])','<\\1&\\3x> <\\2\\!>',x)%>%
     gsub('(^[a-zA-Z-]+)(_[A-Z])','<\\1&\\2x>',.)%>%
     gsub('_Ax','_Jx',.)}

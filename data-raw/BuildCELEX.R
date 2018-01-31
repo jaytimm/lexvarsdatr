@@ -56,12 +56,12 @@ affTypes <- table(affs$classlist,affs$flatlist)%>%
   rename(flatlist=Var2)%>%
   select(-PRE,-SUF)
 
-CELEX <- newcelex%>%
+lvdr_celex <- newcelex%>%
   left_join(affTypes)%>%
   mutate(classlist = ifelse(classlist=="PRE"|classlist=="SUF",type,classlist))%>%
   select(-type)
 
 #Output
-devtools::use_data(CELEX, overwrite=TRUE)
+devtools::use_data(lvdr_celex, overwrite=TRUE)
 
 
