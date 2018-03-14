@@ -28,7 +28,7 @@ kable(data.frame(type=type,bib=bib))
 ```
 
 
-```{r warning=FALSE, paged.print=FALSE}
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(tidyverse)
 #devtools::install_github("jaytimm/lexvarsdatr")
 library(lexvarsdatr)
