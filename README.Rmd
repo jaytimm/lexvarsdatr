@@ -3,6 +3,8 @@
 output:
   md_document:
     variant: markdown_github
+  bibliography: biblio.bib
+  link-citations: yes
 ---
 
 ```{r, echo = FALSE}
@@ -12,7 +14,12 @@ knitr::opts_chunk$set(
   fig.path = "README-")
 ```
 
-##lexvarsdatr: 
+##lexvarsdatr
+
+This post considers a super-clever study presented in @snefjella2015concreteness, 
+
+
+Description.  Just get this clean.  Fix as need be per development of 
 
 Data included in package:
 
@@ -26,8 +33,7 @@ Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). Age-of-acquisitio
 
 Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South Florida free association, rhyme, and word fragment norms. *Behavior Research Methods, Instruments, & Computers*, 36(3), 402-407.
 
-
-
+?? Add REference section via biblio ??
 
 ```{r message=TRUE, warning=FALSE, paged.print=FALSE}
 library(tidyverse)
@@ -36,9 +42,11 @@ library(lexvarsdatr)
 ```
 
 
+Perhaps we bury this for the time being -- ???
+
 ##CELEX functions
 ```{r}
-lexvarsdatr::getFamily(form="think",type="V") %>%
+lexvarsdatr::lvdr_get_family(form="think",type="V") %>%
   unlist()%>%
   paste()
 ```
@@ -46,7 +54,7 @@ lexvarsdatr::getFamily(form="think",type="V") %>%
 ##Behavioral data
 Age-of-acquisition
 ```{r}
-lexvarsdatr::lingBehavData %>%
+lexvarsdatr::lvdr_behav_data %>%
   filter(!is.na(aoaRating)) %>%
   arrange(aoaRating)%>%
   mutate(cum = row_number())%>%
@@ -56,7 +64,7 @@ lexvarsdatr::lingBehavData %>%
 
 
 ```{r}
-lexvarsdatr::lingBehavData %>%
+lexvarsdatr::lvdr_behav_data %>%
   filter(concRating > 4.5, aoaRating > 15)%>%
   select(Word)%>%
   unlist()%>%

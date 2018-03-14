@@ -36,5 +36,5 @@ lvdr_behav_data <- full_join(lexdec,aoa)%>%
 #Also brings us to the issue of conventions across data sets.  We may to homogenize some. ? Joining accomplishes some.  CITATIONS.
 
 ##Output
-devtools::use_data(lingBehavData, overwrite=TRUE)
-
+devtools::use_data(lvdr_behav_data, overwrite=TRUE)
+devtools::use_data(lvdr_association, overwrite=TRUE)
