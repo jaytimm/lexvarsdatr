@@ -11,20 +11,21 @@
 #' @rdname LexvarFunctions
 lvdr_get_family <- function (form,type="word",multiword=FALSE) {
 
-  if (multiword == FALSE) lvdr_celex <- lvdr_celex[grepl(" ",lvdr_celex$flatlist)==FALSE,]
+  x <- lvdr_celex
+  if (multiword == FALSE) x <- x[grepl(" ",x$Word)==FALSE,]
 
   if (toupper(type) == "SUF"){
-    x <- subset(lvdr_celex,classlist=="SUF")
-    x <- lvdr_celex[grepl(paste0("^",form,"$"),lvdr_celex$flatlist)==TRUE,]
+    x <- subset(x,classlist=="SUF")
+    x <- x[grepl(paste0("^",form,"$"),x$flatlist)==TRUE,]
     x[['fpos']]
 
     } else if (toupper(type) == "PRE"){
-    x <- subset(lvdr_celex,classlist=="PRE")
-    x <- lvdr_celex[grepl(paste0("^",form,"$"),lvdr_celex$flatlist)==TRUE,]
+    x <- subset(x,classlist=="PRE")
+    x <- x[grepl(paste0("^",form,"$"),x$flatlist)==TRUE,]
     x[['fpos']]
 
     } else {
-    x <- lvdr_celex[grepl(paste0("^",form,"\\["),lvdr_celex$flatlist)==TRUE,]
+    x <- x[grepl(paste0("^",form,"\\["),x$flatlist)==TRUE,]
     x[['fpos']]
     }
 }
