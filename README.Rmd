@@ -33,7 +33,7 @@ kable(data.frame(Data=Data,Source=Source))
 
 
 
-##lex_behav_data
+###lvdr_behav_data
 
 For convenience, response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`.  Approximately 18K word forms are included in all three data sets.  
 
@@ -46,7 +46,7 @@ lexvarsdatr::lvdr_behav_data %>%
 
 
 
-##lvdr_celex
+###lvdr_celex
 
 The English lemma portion of the CELEX database can be accessed as `lvdr_celex`.  Morphological families can be extracted for both word forms and affixes with the `lvdr_get_family` function.  
 ```{r}
@@ -58,7 +58,7 @@ lexvarsdatr::lvdr_get_family(type="SUF",form="wise")
 ```
 
 
-##lvdr_association
+###lvdr_association
 
 The South Florida word association data set lives in `lvdr_association`.  A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/).  The `lvdr_get_associates` function enables quick access to word associates for a given cue; associates are listed in descending order (per subject responses).
 

@@ -17,8 +17,7 @@ Data included in package:
 | AoA ratings                    | Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). Age-of-acquisition ratings for 30,000 English words. *Behavior Research Methods*, 44(4), 978-990.                                                  |
 | Word association               | Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South Florida free association, rhyme, and word fragment norms. *Behavior Research Methods, Instruments, & Computers*, 36(3), 402-407. |
 
-lex\_behav\_data
-----------------
+### lvdr\_behav\_data
 
 For convenience, response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`. Approximately 18K word forms are included in all three data sets.
 
@@ -43,8 +42,7 @@ lexvarsdatr::lvdr_behav_data %>%
 ## 21  99.42     10.30  4.01       2.07   1.13          25
 ```
 
-lvdr\_celex
------------
+### lvdr\_celex
 
 The English lemma portion of the CELEX database can be accessed as `lvdr_celex`. Morphological families can be extracted for both word forms and affixes with the `lvdr_get_family` function.
 
@@ -70,8 +68,7 @@ lexvarsdatr::lvdr_get_family(type="SUF",form="wise")
 ## [22] "otherwise_ADV"        "slantwise_ADV"        "slantwise_A"
 ```
 
-lvdr\_association
------------------
+### lvdr\_association
 
 The South Florida word association data set lives in `lvdr_association`. A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/). The `lvdr_get_associates` function enables quick access to word associates for a given cue; associates are listed in descending order (per subject responses).
 
