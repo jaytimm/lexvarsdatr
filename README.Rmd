@@ -31,14 +31,18 @@ library(lexvarsdatr) #devtools::install_github("jaytimm/lexvarsdatr")
 ```
 
 
-Perhaps we bury this for the time being -- ???  Morphological families by POS does not make any sense.  in other words, think_n & think_v have different morph families -- ?
-
-##CELEX functions
+##Some basic query functions
+###CELEX
 ```{r}
 lexvarsdatr::lvdr_get_family(form="think")
 ```
 
+```{r}
+lexvarsdatr::lvdr_get_family(type="SUF",form="wise")
+```
 
+
+###Word association
 ```{r}
 lexvarsdatr::lvdr_get_associates(cue='think')
 ```
