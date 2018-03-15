@@ -27,6 +27,7 @@ lexdec <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdat
   select(Word,Pron,NMorph,POS,I_Mean_RT,I_SD,I_NMG_Mean_RT,I_NMG_SD)%>%
   rename(lexdecRT=I_Mean_RT, lexdecSD=I_SD,nmgRT = I_NMG_Mean_RT, nmgSD=I_NMG_SD)
 
+
 lvdr_behav_data <- full_join(lexdec,aoa)%>%
   full_join(conc)%>%
   mutate_if(is.factor,as.character)
