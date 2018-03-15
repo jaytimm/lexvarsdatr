@@ -32,7 +32,8 @@ lexdec <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdat
 
 lvdr_behav_data <- full_join(lexdec,aoa)%>%
   full_join(conc)%>%
-  mutate_if(is.factor,as.character)
+  mutate_if(is.factor,as.character)%>%
+  arrange(Word)
 
 #full2 <- full1 %>%
 #  filter(complete.cases(.))

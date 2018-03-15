@@ -1,7 +1,13 @@
 lexvarsdatr
 ===========
 
-A collection of psycholinguistic/behavioral data, collated from supplemental materials and public databases. Data included in package:
+A collection of psycholinguistic/behavioral data, collated from supplemental materials and public databases.
+
+``` r
+library(lexvarsdatr) #devtools::install_github("jaytimm/lexvarsdatr")
+```
+
+Data included in package:
 
 | Data                           | Source                                                                                                                                                                                                            |
 |:-------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -11,14 +17,36 @@ A collection of psycholinguistic/behavioral data, collated from supplemental mat
 | AoA ratings                    | Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). Age-of-acquisition ratings for 30,000 English words. *Behavior Research Methods*, 44(4), 978-990.                                                  |
 | Word association               | Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South Florida free association, rhyme, and word fragment norms. *Behavior Research Methods, Instruments, & Computers*, 36(3), 402-407. |
 
+lex\_behav\_data
+----------------
+
+For convenience, response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`. Collectively, a total of ~72K unique word forms are included across the three data sets; of these, ~18K are included in all three data sets.
+
 ``` r
-library(lexvarsdatr) #devtools::install_github("jaytimm/lexvarsdatr")
+library(tidyverse)
+lexvarsdatr::lvdr_behav_data %>%
+  na.omit %>%
+  head
+##           Word            Pron NMorph   POS lexdecRT lexdecSD  nmgRT
+## 5       abacus       "a.b@.k@s      1    NN    964.4      489 792.69
+## 6      abandon      @.b"an.4@n      1 VB|NN   695.72   220.41 623.96
+## 9  abandonment @.b"an.4@n.m@nt      2    NN   771.09   229.53 794.70
+## 18  abbreviate    @.br"i.vi.et      3    VB   795.03   316.55 708.44
+## 19       abide         @.b"aId      1    VB   773.21   276.41 633.83
+## 21     abiding      @.b"aI4.IN      2 JJ|VB   784.67   243.05 620.16
+##     nmgSD aoaRating aoaSD concRating concSD freqSUBTLEX
+## 5  200.19      8.69  3.77       4.52   1.12          12
+## 6   98.25      8.32  2.75       2.54   1.45         413
+## 9   256.3     10.27  2.57       2.54   1.29          49
+## 18 156.29      9.95  2.07       2.59   1.53           1
+## 19 145.25      9.50  3.11       1.68   0.86         138
+## 21  99.42     10.30  4.01       2.07   1.13          25
 ```
 
-Some basic query functions
---------------------------
+lvdr\_celex
+-----------
 
-### CELEX
+The English lemma portion of the CELEX database can be accessed as `lvdr_celex`. Morphological families can be extracted for both word forms and affixes with the `lvdr_get_family` function.
 
 ``` r
 lexvarsdatr::lvdr_get_family(form="think",multiword = TRUE)
@@ -42,7 +70,10 @@ lexvarsdatr::lvdr_get_family(type="SUF",form="wise")
 ## [22] "otherwise_ADV"        "slantwise_ADV"        "slantwise_A"
 ```
 
-### Word association
+lvdr\_association
+-----------------
+
+The South Florida word association data set lives in `lvdr_association`. A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/). The `lvdr_get_associates` function enables quick access to word associates for a given cue; associates are listed in descending order (per subject responses).
 
 ``` r
 lexvarsdatr::lvdr_get_associates(cue='think')
@@ -52,3 +83,5 @@ lexvarsdatr::lvdr_get_associates(cue='think')
 ## [16] "do"          "memory"      "plan"        "problem"     "talk"       
 ## [21] "try"         "wonder"
 ```
+
+Additionally querying functionality for both the CELEX and word association data sets is forthcoming.

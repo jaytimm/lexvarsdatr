@@ -14,7 +14,13 @@ knitr::opts_chunk$set(
 
 #lexvarsdatr
 
-A collection of psycholinguistic/behavioral data, collated from supplemental materials and public databases. Data included in package:
+A collection of psycholinguistic/behavioral data, collated from supplemental materials and public databases. 
+
+```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+library(lexvarsdatr) #devtools::install_github("jaytimm/lexvarsdatr")
+```
+
+Data included in package:
 ```{r echo=FALSE, message=FALSE, warning=FALSE}
 library(knitr)
 Data <- c("CELEX - English lemma database","Lexical decision and naming","Concreteness ratings","AoA ratings", "Word association")
@@ -26,13 +32,23 @@ kable(data.frame(Data=Data,Source=Source))
 ```
 
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE}
-library(lexvarsdatr) #devtools::install_github("jaytimm/lexvarsdatr")
+
+##lex_behav_data
+
+For convenience, response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`.  Collectively, a total of ~72K unique word forms are included across the three data sets; of these, ~18K are included in all three data sets.  
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+lexvarsdatr::lvdr_behav_data %>%
+  na.omit %>%
+  head
 ```
 
 
-##Some basic query functions
-###CELEX
+
+##lvdr_celex
+
+The English lemma portion of the CELEX database can be accessed as `lvdr_celex`.  Morphological families can be extracted for both word forms and affixes with the `lvdr_get_family` function.  
 ```{r}
 lexvarsdatr::lvdr_get_family(form="think",multiword = TRUE)
 ```
@@ -42,8 +58,12 @@ lexvarsdatr::lvdr_get_family(type="SUF",form="wise")
 ```
 
 
-###Word association
+##lvdr_association
+
+The South Florida word association data set lives in `lvdr_association`.  A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/).  The `lvdr_get_associates` function enables quick access to word associates for a given cue; associates are listed in descending order (per subject responses).
+
 ```{r}
 lexvarsdatr::lvdr_get_associates(cue='think')
 ```
 
+Additionally querying functionality for both the CELEX and word association data sets is forthcoming.
