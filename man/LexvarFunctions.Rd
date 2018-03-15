@@ -3,12 +3,9 @@
 \name{LexvarFunctions}
 \alias{LexvarFunctions}
 \alias{lvdr_get_family}
-\alias{lvdr_set_cql}
 \title{Query CELEX database}
 \usage{
-lvdr_get_family(form, type)
-
-lvdr_set_cql(x)
+lvdr_get_family(form, type = "word", multiword = FALSE)
 }
 \arguments{
 \item{form}{A word or affix}
@@ -20,8 +17,4 @@ A data.frame
 }
 \description{
 These functions make life easier when querying the behavioral datasets.
-
-getFamily(form="ism",type="SUF")
-getFamily(form="inter",type="PRE")
-View(getFamily(form="glass",type="N"))
 }
