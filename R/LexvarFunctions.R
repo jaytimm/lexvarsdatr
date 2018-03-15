@@ -24,7 +24,7 @@ lvdr_get_family <- function (form,type="word",multiword=FALSE) {
     x[['fpos']]
 
     } else {
-    x <- lvdr_celex[grepl(paste0("^",form,"["),lvdr_celex$flatlist)==TRUE,]
+    x <- lvdr_celex[grepl(paste0("^",form,"\\["),lvdr_celex$flatlist)==TRUE,]
     x[['fpos']]
     }
 }
