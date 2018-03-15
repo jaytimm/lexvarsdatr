@@ -11,7 +11,7 @@
 #' @rdname LexvarFunctions
 lvdr_get_family <- function (form,type="word",multiword=FALSE) {
 
-  if (multiword == FALSE) lvdr_celex <- lvdr_celex[grepl(" "),lvdr_celex$flatlist==FALSE,]
+  if (multiword == FALSE) lvdr_celex <- lvdr_celex[grepl(" ",lvdr_celex$flatlist)==FALSE,]
 
   if (toupper(type) == "SUF"){
     x <- subset(lvdr_celex,classlist=="SUF")
