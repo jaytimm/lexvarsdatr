@@ -21,10 +21,13 @@ Some basic query functions
 ### CELEX
 
 ``` r
-lexvarsdatr::lvdr_get_family(form="think")
-##  [1] "bethink_V"     "doublethink_N" "freethinker_N" "rethink_N"    
-##  [5] "rethink_V"     "think_N"       "think_V"       "thinkable_A"  
-##  [9] "thinker_N"     "think-tank_N"  "unthinkable_A"
+lexvarsdatr::lvdr_get_family(form="think",multiword = TRUE)
+##  [1] "bethink_V"       "doublethink_N"   "freethinker_N"  
+##  [4] "rethink_N"       "rethink_V"       "think_N"        
+##  [7] "think_V"         "thinkable_A"     "thinker_N"      
+## [10] "think of_V"      "think out_V"     "think over_V"   
+## [13] "think-tank_N"    "think through_V" "think up_V"     
+## [16] "unthinkable_A"
 ```
 
 ``` r

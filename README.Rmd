@@ -34,7 +34,7 @@ library(lexvarsdatr) #devtools::install_github("jaytimm/lexvarsdatr")
 ##Some basic query functions
 ###CELEX
 ```{r}
-lexvarsdatr::lvdr_get_family(form="think")
+lexvarsdatr::lvdr_get_family(form="think",multiword = TRUE)
 ```
 
 ```{r}
