@@ -20,7 +20,7 @@ Data included in package:
 lex\_behav\_data
 ----------------
 
-For convenience, response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`. Collectively, a total of ~72K unique word forms are included across the three data sets; of these, ~18K are included in all three data sets.
+For convenience, response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`. Approximately 18K word forms are included in all three data sets.
 
 ``` r
 library(tidyverse)
@@ -84,4 +84,4 @@ lexvarsdatr::lvdr_get_associates(cue='think')
 ## [21] "try"         "wonder"
 ```
 
-Additionally querying functionality for both the CELEX and word association data sets is forthcoming.
+Additional querying functionality for both the CELEX and word association data sets is forthcoming.
