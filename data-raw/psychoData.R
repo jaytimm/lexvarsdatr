@@ -12,7 +12,8 @@ citations <- c("Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). A
 
 
 lvdr_association <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\association_Nelson&McEvoy_2004.csv")%>%
-  mutate_if(is.factor,as.character)
+  mutate_if(is.factor,as.character) %>%
+  mutate_at(c('TARGET','CUE'),trimws)
 
 aoa <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\aoa_Kuperman_et_al_2012.csv")%>%
   select(Word,Rating.Mean,Rating.SD)%>%
