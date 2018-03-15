@@ -3,9 +3,12 @@
 \name{LexvarFunctions}
 \alias{LexvarFunctions}
 \alias{lvdr_get_family}
+\alias{lvdr_get_associates}
 \title{Query CELEX database}
 \usage{
 lvdr_get_family(form, type = "word", multiword = FALSE)
+
+lvdr_get_associates(cue)
 }
 \arguments{
 \item{form}{A word or affix}

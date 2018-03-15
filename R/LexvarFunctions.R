@@ -29,3 +29,10 @@ lvdr_get_family <- function (form,type="word",multiword=FALSE) {
     x[['fpos']]
     }
 }
+
+
+#' @export
+#' @rdname LexvarFunctions
+lvdr_get_associates <- function (cue) {
+   x <- subset(lvdr_association,CUE==toupper(cue))
+   x[['TARGET']] }

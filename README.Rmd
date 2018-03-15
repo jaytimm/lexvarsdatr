@@ -35,8 +35,6 @@ Perhaps we bury this for the time being -- ???  Morphological families by POS do
 
 ##CELEX functions
 ```{r}
-lexvarsdatr::lvdr_get_family(form="think",type="V") %>%
-  unlist()%>%
-  paste()
+lexvarsdatr::lvdr_get_family(form="think")
 ```
 
