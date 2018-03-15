@@ -43,9 +43,9 @@ lexvarsdatr::lvdr_get_family(type="SUF",form="wise")
 
 ``` r
 lexvarsdatr::lvdr_get_associates(cue='think')
-##  [1] "BRAIN"       "MIND"        "THOUGHT"     "STUDY"       "CONCENTRATE"
-##  [6] "IDEA"        "PONDER"      "LEARN"       "HARD"        "KNOW"       
-## [11] "KNOWLEDGE"   "SCHOOL"      "SMART"       "COGITATE"    "CONTEMPLATE"
-## [16] "DO"          "MEMORY"      "PLAN"        "PROBLEM"     "TALK"       
-## [21] "TRY"         "WONDER"
+##  [1] "brain"       "mind"        "thought"     "study"       "concentrate"
+##  [6] "idea"        "ponder"      "learn"       "hard"        "know"       
+## [11] "knowledge"   "school"      "smart"       "cogitate"    "contemplate"
+## [16] "do"          "memory"      "plan"        "problem"     "talk"       
+## [21] "try"         "wonder"
 ```
