@@ -56,10 +56,15 @@ affTypes <- table(affs$classlist,affs$flatlist)%>%
   rename(flatlist=Var2)%>%
   select(-PRE,-SUF)
 
+#Hand correct
+affTypes$type[1] <- "PRE"
+
 lvdr_celex <- newcelex%>%
   left_join(affTypes)%>%
   mutate(classlist = ifelse(classlist=="PRE"|classlist=="SUF",type,classlist))%>%
   select(-type)
+
+setwd("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr")
 
 #Output
 devtools::use_data(lvdr_celex, overwrite=TRUE)
