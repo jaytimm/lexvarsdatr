@@ -38,3 +38,8 @@ Perhaps we bury this for the time being -- ???  Morphological families by POS do
 lexvarsdatr::lvdr_get_family(form="think")
 ```
 
+
+```{r}
+lexvarsdatr::lvdr_get_associates(cue='think')
+```
+

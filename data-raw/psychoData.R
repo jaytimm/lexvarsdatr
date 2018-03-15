@@ -11,7 +11,8 @@ citations <- c("Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). A
 "Baayen, R. H., Piepenbrock, R., & Gulikers, L. (1995). The CELEX lexical database [webcelex]. Philadelphia, PA: University of Pennsylvania, Linguistic Data Consortium.")
 
 
-lvdr_association <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\association_Nelson&McEvoy_2004.csv")
+lvdr_association <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\association_Nelson&McEvoy_2004.csv")%>%
+  mutate_if(is.factor,as.character)
 
 aoa <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\aoa_Kuperman_et_al_2012.csv")%>%
   select(Word,Rating.Mean,Rating.SD)%>%
@@ -26,7 +27,8 @@ lexdec <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdat
   rename(lexdecRT=I_Mean_RT, lexdecSD=I_SD,nmgRT = I_NMG_Mean_RT, nmgSD=I_NMG_SD)
 
 lvdr_behav_data <- full_join(lexdec,aoa)%>%
-  full_join(conc)
+  full_join(conc)%>%
+  mutate_if(is.factor,as.character)
 
 #full2 <- full1 %>%
 #  filter(complete.cases(.))
@@ -34,7 +36,7 @@ lvdr_behav_data <- full_join(lexdec,aoa)%>%
 #Not sure how we want to structure this.? A single df, multiple, a list of dfs.
 
 #Also brings us to the issue of conventions across data sets.  We may to homogenize some. ? Joining accomplishes some.  CITATIONS.
-
+setwd("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr")
 ##Output
 devtools::use_data(lvdr_behav_data, overwrite=TRUE)
 devtools::use_data(lvdr_association, overwrite=TRUE)

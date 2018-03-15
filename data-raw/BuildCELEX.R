@@ -62,7 +62,8 @@ affTypes$type[1] <- "PRE"
 lvdr_celex <- newcelex%>%
   left_join(affTypes)%>%
   mutate(classlist = ifelse(classlist=="PRE"|classlist=="SUF",type,classlist))%>%
-  select(-type)
+  select(-type)%>%
+  mutate_if(is.factor,as.character)
 
 setwd("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr")
 
