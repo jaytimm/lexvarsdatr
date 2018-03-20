@@ -60,7 +60,7 @@ lexvarsdatr::lvdr_get_family(type="SUF",form="wise")
 
 ###lvdr_association
 
-The South Florida word association data set lives in `lvdr_association`.  A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/).  The `lvdr_get_associates` function enables quick access to word associates for a given cue; associates are listed in descending order (per subject responses).
+The South Florida word association data set lives in `lvdr_association`.  A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/).  The `lvdr_get_associates` function enables quick access to word associates for a given cue; associates are listed in descending order (per total subject responses).
 
 ```{r}
 lexvarsdatr::lvdr_get_associates(cue='think')
