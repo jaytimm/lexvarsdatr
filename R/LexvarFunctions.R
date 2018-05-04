@@ -9,7 +9,10 @@
 
 #' @export
 #' @rdname LexvarFunctions
-lvdr_get_family <- function (form,type="word",multiword=FALSE) {
+lvdr_get_family <- function (form,type="word",
+                             multiword=FALSE,
+                             toupper=FALSE,
+                             include_pos=FALSE) {
 
   x <- lvdr_celex
   if (multiword == FALSE) x <- x[grepl(" ",x$Word)==FALSE,]
@@ -17,22 +20,27 @@ lvdr_get_family <- function (form,type="word",multiword=FALSE) {
   if (toupper(type) == "SUF"){
     x <- subset(x,classlist=="SUF")
     x <- x[grepl(paste0("^",form,"$"),x$flatlist)==TRUE,]
-    x[['fpos']]
+    y <- x[['fpos']]
 
     } else if (toupper(type) == "PRE"){
     x <- subset(x,classlist=="PRE")
     x <- x[grepl(paste0("^",form,"$"),x$flatlist)==TRUE,]
-    x[['fpos']]
+    y <- x[['fpos']]
 
     } else {
     x <- x[grepl(paste0("^",form,"\\["),x$flatlist)==TRUE,]
-    x[['fpos']]
+    y <- x[['fpos']]
     }
+
+  if (toupper) y <- toupper(y)
+  if (!include_pos) y <- gsub ("_.*$","",y)
+    y
 }
 
 
 #' @export
 #' @rdname LexvarFunctions
-lvdr_get_associates <- function (cue) {
+lvdr_get_associates <- function (cue, toupper=FALSE) {
    x <- subset(lvdr_association,CUE==toupper(cue))
-   tolower(x[['TARGET']]) }
+   if(!toupper) tolower(x[['TARGET']])
+   x[['TARGET']]}
