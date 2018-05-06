@@ -4,11 +4,15 @@
 \alias{LexvarFunctions}
 \alias{lvdr_get_family}
 \alias{lvdr_get_associates}
+\alias{lvdr_build_network}
 \title{Query CELEX database}
 \usage{
-lvdr_get_family(form, type = "word", multiword = FALSE)
+lvdr_get_family(form, type = "word", multiword = FALSE, toupper = FALSE,
+  include_pos = FALSE)
 
-lvdr_get_associates(cue)
+lvdr_get_associates(cue, toupper = FALSE)
+
+lvdr_build_network(search)
 }
 \arguments{
 \item{form}{A word or affix}
