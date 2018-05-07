@@ -81,124 +81,13 @@ lexvarsdatr::lvdr_get_associates(cue='think')
 ## [21] "TRY"         "WONDER"
 ```
 
-The `lvdr_build_network` function ....
+The `lvdr_build_network` function builds a network structure for a given search term (or terms).
 
 ``` r
 network <- lexvarsdatr::lvdr_build_network(search='THINK')
 ```
 
-``` r
-network
-## $nodes
-##          label id
-## 1        THINK  1
-## 2        BRAIN  2
-## 3         MIND  3
-## 4      THOUGHT  4
-## 5        STUDY  5
-## 6  CONCENTRATE  6
-## 7         IDEA  7
-## 8       PONDER  8
-## 9        LEARN  9
-## 10        HARD 10
-## 11        KNOW 11
-## 12   KNOWLEDGE 12
-## 13      SCHOOL 13
-## 14       SMART 14
-## 15    COGITATE 15
-## 16 CONTEMPLATE 16
-## 17          DO 17
-## 18      MEMORY 18
-## 19        PLAN 19
-## 20     PROBLEM 20
-## 21        TALK 21
-## 22         TRY 22
-## 23      WONDER 23
-## 
-## $edges
-##    from to weight
-## 1     7  2      3
-## 2     3  2     53
-## 3     6  2      2
-## 4     4  2      9
-## 5     1  2     27
-## 6    18  2      9
-## 7    14  2      2
-## 8    12  2      6
-## 9     1 15      2
-## 10    1  6      7
-## 11    1 16      2
-## 12    1 17      2
-## 13   22 17      8
-## 14   22 10     14
-## 15    1 10      3
-## 16    6 10      6
-## 17   13 10      5
-## 18    5 10     18
-## 19    1  7      7
-## 20    4  7     18
-## 21   19  7     15
-## 22    1 11      3
-## 23    9 11     19
-## 24   12 11      9
-## 25    9 12     22
-## 26    7 12      5
-## 27   14 12      3
-## 28   11 12     23
-## 29    2 12      4
-## 30    1 12      3
-## 31    5  9      8
-## 32   11  9     19
-## 33   13  9     13
-## 34   12  9     10
-## 35    1  9      4
-## 36    6  9      3
-## 37    2  9      2
-## 38    3 18      2
-## 39    1 18      2
-## 40    6  3      5
-## 41    4  3     15
-## 42    7  3      2
-## 43    1  3     16
-## 44    2  3      7
-## 45   18  3     24
-## 46   14  3      2
-## 47    7 19      5
-## 48    1 19      2
-## 49   23  8      3
-## 50    1  8      7
-## 51    1 20      2
-## 52    5 13     14
-## 53   20 13      3
-## 54    1 13      3
-## 55   10 13      2
-## 56    9 13     30
-## 57    2 14     17
-## 58    9 14      3
-## 59   12 14     43
-## 60   11 14     14
-## 61    1 14      3
-## 62    6  5     13
-## 63   19  5      2
-## 64    9  5      4
-## 65    1  5     11
-## 66   13  5     12
-## 67    1 21      2
-## 68   20 21      2
-## 69    1  4     16
-## 70    7  4     86
-## 71   23  4      2
-## 72    2  4      7
-## 73    8  4      4
-## 74   18  4     13
-## 75    3  4      8
-## 76    1 22      2
-## 77    8 23     40
-## 78    1 23      2
-## 79    4 23      2
-```
-
-Output object contains a nodes and an edges dataframe, and can be fed directly to
+Output object contains nodes/edges dataframes, and can be fed directly to any number of network visualization R packages.
 
 ``` r
 library(tidygraph)
@@ -212,7 +101,7 @@ ggraph(routes, layout = "graphopt") +
   scale_edge_width(range = c(0.2, 2)) +
   geom_node_text(aes(label = label), repel = TRUE) +
   theme_graph() +
-  labs(title = "Associative network for THINK")
+  labs(title = "One-hop associative network for THINK")
 ```
 
-![](README-unnamed-chunk-10-1.png)
+![](README-unnamed-chunk-9-1.png)
