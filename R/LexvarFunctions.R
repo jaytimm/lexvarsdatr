@@ -72,7 +72,7 @@ lvdr_build_network <- function (search) {
   search_nodes$id <- 1:nrow(search_nodes)
   search_nodes$label <- as.character(search_nodes$label)
 
-  just_nodes <- search_nodes[,c('label','value')]
+  just_nodes <- search_nodes[,c('id','label')]
   search_edges <- merge(edges,just_nodes, by.x= 'CUE', by.y = 'label')
   search_edges <- merge(search_edges,just_nodes, by.x= 'TARGET', by.y = 'label')
 
