@@ -46,6 +46,8 @@ lvdr_get_associates <- function (cue, toupper=FALSE) {
    x[['TARGET']]}
 
 
+search='WORK'
+
 #' @export
 #' @rdname LexvarFunctions
 lvdr_build_network <- function (search) {
@@ -53,25 +55,29 @@ lvdr_build_network <- function (search) {
   nodes <- unique(c(lvdr_association$CUE, lvdr_association$TARGET))
   search_id <- subset(nodes, nodes %in% search)
 
-  cues <- lvdr_association[lvdr_association$CUE %in% search_id,]
-
-  hops <- unique(c(cues$CUE, cues$TARGET))
-
-  search_edges1 <- lvdr_association[lvdr_association$CUE %in% cues$CUE,]
+  search_edges1 <- lvdr_association[lvdr_association$CUE %in% search_id,]
   search_edges2 <- lvdr_association[lvdr_association$CUE %in% cues$TARGET & lvdr_association$TARGET %in% cues$TARGET,]
 
   edges <- rbind(search_edges1, search_edges2)
 
-  search_nodes <- as.data.frame(unique(c(search_edges1$CUE, search_edges1$TARGET)))
-  colnames(search_nodes)[1] <- 'label'
+  cue <- search_edges1[1,c(1,14,18)]
+  colnames(cue) <- c('label','value','pos')
+  cue$type <- 'cue'
+
+  search_nodes <- search_edges1[,c('TARGET','X_P','TPS')]
+  colnames(search_nodes) <- c('label','value','pos')
+  search_nodes$type <- 'target'
+
+  search_nodes <- rbind(cue, search_nodes)
   search_nodes$id <- 1:nrow(search_nodes)
   search_nodes$label <- as.character(search_nodes$label)
 
-  search_edges <- merge(edges,search_nodes, by.x= 'CUE', by.y = 'label')
-  search_edges <- merge(search_edges,search_nodes, by.x= 'TARGET', by.y = 'label')
+  just_nodes <- search_nodes[,c('label','value')]
+  search_edges <- merge(edges,just_nodes, by.x= 'CUE', by.y = 'label')
+  search_edges <- merge(search_edges,just_nodes, by.x= 'TARGET', by.y = 'label')
 
   search_edges <- search_edges[,c('id.x','id.y','X_P')]
-  colnames(search_edges) <- c('from','to','weight')
+  colnames(search_edges) <- c('from','to','value')
 
   out <- list("nodes" = search_nodes, "edges" = search_edges)
   return(out)
