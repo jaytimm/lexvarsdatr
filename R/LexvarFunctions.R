@@ -62,11 +62,11 @@ lvdr_build_network <- function (search) {
 
   cue <- search_edges1[1,c(1,14,18)]
   colnames(cue) <- c('label','value','pos')
-  cue$type <- 'cue'
+  cue$group <- 'cue'
 
   search_nodes <- search_edges1[,c('TARGET','X_P','TPS')]
   colnames(search_nodes) <- c('label','value','pos')
-  search_nodes$type <- 'target'
+  search_nodes$group <- 'target'
 
   search_nodes <- rbind(cue, search_nodes)
   search_nodes$id <- 1:nrow(search_nodes)
