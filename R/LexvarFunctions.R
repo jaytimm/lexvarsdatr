@@ -56,7 +56,7 @@ lvdr_build_network <- function (search) {
   search_id <- subset(nodes, nodes %in% search)
 
   search_edges1 <- lvdr_association[lvdr_association$CUE %in% search_id,]
-  search_edges2 <- lvdr_association[lvdr_association$CUE %in% cues$TARGET & lvdr_association$TARGET %in% cues$TARGET,]
+  search_edges2 <- lvdr_association[lvdr_association$CUE %in% search_edges1$TARGET & lvdr_association$TARGET %in% search_edges1$TARGET,]
 
   edges <- rbind(search_edges1, search_edges2)
 
