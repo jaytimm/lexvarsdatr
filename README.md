@@ -99,8 +99,11 @@ network %>%
   geom_edge_link(color = 'gray') + #alpha = 0.8
   geom_node_point(aes(size = value, color = group)) +
   geom_node_text(aes(label = label), repel = TRUE) +
-  facet_wrap(~cue) +
-  theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
+  facet_wrap(~cue) #+
 ```
 
 ![](README-unnamed-chunk-9-1.png)
+
+``` r
+  #theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
+```
