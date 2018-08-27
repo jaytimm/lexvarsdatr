@@ -81,27 +81,26 @@ lexvarsdatr::lvdr_get_associates(cue='think')
 ## [21] "TRY"         "WONDER"
 ```
 
-The `lvdr_build_network` function builds a network structure for a given search term (or terms).
+The `lvdr_build_network` function builds a network structure for a given search term.
 
 ``` r
-network <- lexvarsdatr::lvdr_build_network(search='THINK')
+network <- lexvarsdatr::lvdr_build_network("energy") 
 ```
 
 Output object contains nodes/edges dataframes, and can be fed directly to any number of network visualization R packages.
 
 ``` r
-library(tidygraph)
 library(ggraph)
+library(tidygraph)
 
-routes <- tbl_graph(nodes = network$nodes, edges = network$edges, directed = TRUE) 
-
-ggraph(routes, layout = "graphopt") +
-  geom_node_point() +
-  geom_edge_link(aes(width = weight), alpha = 0.8) + 
-  scale_edge_width(range = c(0.2, 2)) +
+network %>%
+  tidygraph::as_tbl_graph() %>%
+  ggraph() +
+  geom_edge_link(color = 'gray') + #alpha = 0.8
+  geom_node_point(aes(size = value, color = group)) +
   geom_node_text(aes(label = label), repel = TRUE) +
-  theme_graph() +
-  labs(title = "One-hop associative network for THINK")
+  facet_wrap(~cue) +
+  theme_graph(foreground = 'steelblue', fg_text_colour = 'white')
 ```
 
 ![](README-unnamed-chunk-9-1.png)
