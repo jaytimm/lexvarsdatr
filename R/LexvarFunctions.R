@@ -9,7 +9,8 @@
 
 #' @export
 #' @rdname LexvarFunctions
-lvdr_get_family <- function (form,type="word",
+lvdr_get_family <- function (form,
+                             type="word",
                              multiword=FALSE,
                              toupper=FALSE,
                              include_pos=FALSE) {
@@ -46,14 +47,14 @@ lvdr_get_associates <- function (cue, toupper=FALSE) {
    x[['TARGET']]}
 
 
-search='WORK'
+search=c('WORK', 'HOPE')
 
 #' @export
 #' @rdname LexvarFunctions
 lvdr_build_network <- function (search) {
 
   nodes <- unique(c(lvdr_association$CUE, lvdr_association$TARGET))
-  search_id <- subset(nodes, nodes %in% search)
+  search_id <- subset(nodes, nodes %in% toupper(search))
 
   search_edges1 <- lvdr_association[lvdr_association$CUE %in% search_id,]
   search_edges2 <- lvdr_association[lvdr_association$CUE %in% search_edges1$TARGET & lvdr_association$TARGET %in% search_edges1$TARGET,]
@@ -71,6 +72,7 @@ lvdr_build_network <- function (search) {
   search_nodes <- rbind(cue, search_nodes)
   search_nodes$id <- 1:nrow(search_nodes)
   search_nodes$label <- as.character(search_nodes$label)
+  search_noces$cie <- toupper(search_id)
 
   just_nodes <- search_nodes[,c('id','label')]
   search_edges <- merge(edges,just_nodes, by.x= 'CUE', by.y = 'label')
