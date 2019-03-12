@@ -11,7 +11,7 @@ citations <- c("Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). A
 "Baayen, R. H., Piepenbrock, R., & Gulikers, L. (1995). The CELEX lexical database [webcelex]. Philadelphia, PA: University of Pennsylvania, Linguistic Data Consortium.")
 
 
-lvdr_association <- read.csv("C:\\Users\\jtimm\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\association_Nelson&McEvoy_2004.csv")%>%
+lvdr_association <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\association_Nelson&McEvoy_2004.csv")%>%
   #mutate_if(is.factor,as.character) %>%
   mutate_at(c('NORMED','TARGET','CUE','TH','TPS','QPS','QH'),trimws)
 
@@ -35,13 +35,14 @@ lvdr_behav_data <- full_join(lexdec,aoa)%>%
   mutate_if(is.factor,as.character)%>%
   arrange(Word)
 
-#full2 <- full1 %>%
-#  filter(complete.cases(.))
+lvdr_association_sparse <- lvdr_association %>%
+  tidytext::cast_sparse(CUE,
+                        TARGET,
+                        X_P)
 
-#Not sure how we want to structure this.? A single df, multiple, a list of dfs.
 
-#Also brings us to the issue of conventions across data sets.  We may to homogenize some. ? Joining accomplishes some.  CITATIONS.
-setwd("C:\\Users\\jtimm\\Google Drive\\GitHub\\packages\\lexvarsdatr")
+setwd("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr")
 ##Output
+devtools::use_data(lvdr_association_sparse, overwrite=TRUE)
 devtools::use_data(lvdr_behav_data, overwrite=TRUE)
 devtools::use_data(lvdr_association, overwrite=TRUE)
