@@ -21,10 +21,10 @@ lvdr_extract_network <- function (y,
       nodes <- data.frame(as.matrix(filts),
                           stringsAsFactors = FALSE)
       names(nodes) <- toupper(search)}
-  nodes$label <- rownames(y)
+  nodes$label <- colnames(y)
 
   nodes <- reshape2::melt(nodes, id.vars = c('label'), variable.name = 'from')
-  nodes <- nodes[nodes$value > min_val,]
+  nodes <- nodes[nodes$value > min_val | nodes$label %in% search,] #New
   nodes <- nodes[order(-nodes$value), ]
   nodes <- nodes[!duplicated(nodes[,c('label')]),]
   nodes <- nodes[-2]
