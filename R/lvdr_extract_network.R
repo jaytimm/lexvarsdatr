@@ -15,10 +15,14 @@ lvdr_extract_network <- function (y,
                                  min_val) {
 
   filts <- y[rownames(y) %in% search, ]
+  if (length(search) > 1) {
+    nodes <- data.frame(t(as.matrix(filts)),
+                        stringsAsFactors = FALSE) } else{
+      nodes <- data.frame(as.matrix(filts),
+                          stringsAsFactors = FALSE)
+      names(nodes) <- toupper(search)}
+  nodes$label <- rownames(y)
 
-  nodes <- data.frame(t(as.matrix(filts)),
-                      stringsAsFactors = FALSE)
-  nodes$label <- rownames(nodes)
   nodes <- reshape2::melt(nodes, id.vars = c('label'), variable.name = 'from')
   nodes <- nodes[nodes$value > min_val,]
   nodes <- nodes[order(-nodes$value), ]
