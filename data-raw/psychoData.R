@@ -13,7 +13,10 @@ citations <- c("Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). A
 
 lvdr_association <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\association_Nelson&McEvoy_2004.csv")%>%
   #mutate_if(is.factor,as.character) %>%
-  mutate_at(c('NORMED','TARGET','CUE','TH','TPS','QPS','QH'),trimws)
+  mutate_at(c('NORMED','TARGET','CUE','TH','TPS','QPS','QH'),trimws) %>%
+  mutate(CUE = gsub(' ', '_', CUE),
+         TARGET = gsub(' ', '_', TARGET))
+
 
 colnames(lvdr_association) <- gsub("\\.","_",colnames(lvdr_association))
 
@@ -44,5 +47,5 @@ lvdr_association_sparse <- lvdr_association %>%
 setwd("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr")
 ##Output
 devtools::use_data(lvdr_association_sparse, overwrite=TRUE)
-devtools::use_data(lvdr_behav_data, overwrite=TRUE)
 devtools::use_data(lvdr_association, overwrite=TRUE)
+devtools::use_data(lvdr_behav_data, overwrite=TRUE)
