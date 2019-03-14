@@ -34,11 +34,15 @@ lvdr_extract_network <- function (y,
 
   #Build edges
   #x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label]
-  x <- y[nodes$label,nodes$label]
+  x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label] #BREAKS here.
+  x <- x[, order(colnames(x))]
+  x <- x[order(rownames(x)), ]
+
   x[!upper.tri(x)] <- 0
   x <- data.frame(from = row.names(x), as.matrix(x),
                   stringsAsFactors = FALSE)
   x <- reshape2::melt(x, id.vars = c('from'), variable.name = 'to')
+
   edges <- subset(x, value >= min_val)
   edges$to <- as.character(edges$to)
   rownames(edges) <- NULL
