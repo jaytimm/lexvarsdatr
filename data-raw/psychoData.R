@@ -44,6 +44,21 @@ lvdr_association_sparse <- lvdr_association %>%
                         X_P)
 
 
+##Make square
+d <- dim(lvdr_association_sparse)
+cn <- colnames(lvdr_association_sparse)
+
+lvdr_association_sparse <- rbind(lvdr_association_sparse, matrix(0,
+                                      diff(d),
+                                      ncol(lvdr_association_sparse),
+                                      dimnames = list(cn[(d[1]+1):d[2]])))
+
+
+lvdr_association_sparse <- lvdr_association_sparse[, order(colnames(lvdr_association_sparse))]
+lvdr_association_sparse <- lvdr_association_sparse[order(rownames(lvdr_association_sparse)), ]
+
+
+
 setwd("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr")
 ##Output
 devtools::use_data(lvdr_association_sparse, overwrite=TRUE)
