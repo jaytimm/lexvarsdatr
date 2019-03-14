@@ -46,7 +46,7 @@ lvdr_extract_network <- function (y,
 
   x <- data.frame(t(apply(x, 1, sort)), stringsAsFactors = FALSE)
   x$X1 <- as.integer(x$X1)
-  x <- x1[order(-x$X1), ]
+  x <- x[order(-x$X1), ]
   x <- unique(x) #All unique forward/backword relationships -- filtered to max.
   colnames(x) <- c('value', 'to', 'from')
 
