@@ -12,7 +12,8 @@
 
 lvdr_extract_network <- function (y,
                                  search,
-                                 min_val) {
+                                 tf_min,
+                                 ff_min) {
 
   filts <- y[rownames(y) %in% search, ]
   if (length(search) > 1) {
@@ -24,7 +25,7 @@ lvdr_extract_network <- function (y,
   nodes$label <- colnames(y)
 
   nodes <- reshape2::melt(nodes, id.vars = c('label'), variable.name = 'from')
-  nodes <- nodes[nodes$value > min_val | nodes$label %in% search,] #New
+  nodes <- nodes[nodes$value > tf_min | nodes$label %in% search,] #New
   nodes <- nodes[order(-nodes$value), ]
   nodes <- nodes[!duplicated(nodes[,c('label')]),]
   nodes <- nodes[-2]
@@ -33,18 +34,23 @@ lvdr_extract_network <- function (y,
   rownames(nodes) <- NULL
 
   #Build edges
-  #x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label]
-  x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label] #BREAKS here.
+  x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label]
+  #x <- y[nodes$label,nodes$label]
   x <- x[, order(colnames(x))]
   x <- x[order(rownames(x)), ]
 
-  x[!upper.tri(x)] <- 0
   x <- data.frame(from = row.names(x), as.matrix(x),
-                  stringsAsFactors = FALSE)
+                stringsAsFactors = FALSE)
   x <- reshape2::melt(x, id.vars = c('from'), variable.name = 'to')
+#x[!lower.tri(x)] <- 0
 
-  edges <- subset(x, value >= min_val)
-  edges$to <- as.character(edges$to)
+  x <- data.frame(t(apply(x, 1, sort)), stringsAsFactors = FALSE)
+  x$X1 <- as.integer(x$X1)
+  x <- x1[order(-x$X1), ]
+  x <- unique(x) #All unique forward/backword relationships -- filtered to max.
+  colnames(x) <- c('value', 'to', 'from')
+
+  edges <- subset(x, value >= ff_min)
   rownames(edges) <- NULL
   list(nodes=nodes, edges=edges)
 }
