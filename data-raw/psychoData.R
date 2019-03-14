@@ -38,25 +38,23 @@ lvdr_behav_data <- full_join(lexdec,aoa)%>%
   mutate_if(is.factor,as.character)%>%
   arrange(Word)
 
+##Make square
+add_rows <- c(setdiff(lvdr_association$TARGET, lvdr_association$CUE),
+              setdiff(lvdr_association$CUE, lvdr_association$TARGET))
+
+add_rows <- data.frame(CUE = add_rows, TARGET = add_rows, X_P = rep(NA, length(add_rows)),
+                       stringsAsFactors = FALSE)
+
 lvdr_association_sparse <- lvdr_association %>%
+  select(CUE, TARGET, X_P) %>%
+  bind_rows(add_rows)%>%
+  arrange(CUE) %>%
   tidytext::cast_sparse(CUE,
                         TARGET,
                         X_P)
 
-
-##Make square
-d <- dim(lvdr_association_sparse)
-cn <- colnames(lvdr_association_sparse)
-
-lvdr_association_sparse <- rbind(lvdr_association_sparse, matrix(0,
-                                      diff(d),
-                                      ncol(lvdr_association_sparse),
-                                      dimnames = list(cn[(d[1]+1):d[2]])))
-
-
-lvdr_association_sparse <- lvdr_association_sparse[, order(colnames(lvdr_association_sparse))]
-lvdr_association_sparse <- lvdr_association_sparse[order(rownames(lvdr_association_sparse)), ]
-
+lvdr_association_sparse@x[is.na(lvdr_association_sparse@x)] <- 0 ##PPMI
+lvdr_association_sparse <- Matrix::drop0(lvdr_association_sparse, tol=0)
 
 
 setwd("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr")
