@@ -24,12 +24,18 @@ lvdr_extract_network <- function (y,
       names(nodes) <- toupper(search)}
   nodes$label <- colnames(y)
 
-  nodes <- reshape2::melt(nodes, id.vars = c('label'), variable.name = 'from')
-  nodes <- nodes[nodes$value > tf_min | nodes$label %in% search,] #New
+  nodes <- reshape2::melt(nodes, id.vars = c('label'), variable.name = 'search_term')
+  nodes <- nodes[nodes$value >= tf_min | nodes$label %in% search,] #New
   nodes <- nodes[order(-nodes$value), ]
-  nodes <- nodes[!duplicated(nodes[,c('label')]),]
-  nodes <- nodes[-2]
+
+
+  nodes <- nodes[!duplicated(nodes[,c('label')]),] #
+
+  #nodes <- nodes[-2]
   nodes$group <- ifelse(nodes$label %in% search, 'term', 'feature')
+
+  nodes$search_term <- ifelse(nodes$group == 'term', nodes$label, as.character(nodes$search_term))
+
   nodes <- nodes[order(nodes$group, decreasing = TRUE), ]
   rownames(nodes) <- NULL
 
@@ -42,11 +48,13 @@ lvdr_extract_network <- function (y,
   x <- data.frame(from = row.names(x), as.matrix(x),
                 stringsAsFactors = FALSE)
   x <- reshape2::melt(x, id.vars = c('from'), variable.name = 'to')
+  x <- x[x$value > 0,]
 #x[!lower.tri(x)] <- 0
 
   x <- data.frame(t(apply(x, 1, sort)), stringsAsFactors = FALSE)
   x$X1 <- as.integer(x$X1)
   x <- x[order(-x$X1), ]
+  #Need to filter 0 first.  Big matrices ngrams
   x <- unique(x) #All unique forward/backword relationships -- filtered to max.
   colnames(x) <- c('value', 'to', 'from')
 
