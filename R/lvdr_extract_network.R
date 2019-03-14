@@ -33,7 +33,8 @@ lvdr_extract_network <- function (y,
   rownames(nodes) <- NULL
 
   #Build edges
-  x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label]
+  #x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label]
+  x <- y[nodes$label,nodes$label]
   x[!upper.tri(x)] <- 0
   x <- data.frame(from = row.names(x), as.matrix(x),
                   stringsAsFactors = FALSE)
