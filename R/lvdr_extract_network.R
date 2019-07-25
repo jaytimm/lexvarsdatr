@@ -10,55 +10,44 @@
 #' @export
 #' @rdname lvdr_extract_network
 
-lvdr_extract_network <- function (y,
-                                 search,
-                                 tf_min,
-                                 ff_min) {
+lvdr_build_network <- function (tfm,
+                                target,
+                                n = 10) {
 
-  filts <- y[rownames(y) %in% search, ]
-  if (length(search) > 1) {
-    nodes <- data.frame(t(as.matrix(filts)),
-                        stringsAsFactors = FALSE) } else{
-      nodes <- data.frame(as.matrix(filts),
-                          stringsAsFactors = FALSE)
-      names(nodes) <- toupper(search)}
-  nodes$label <- colnames(y)
+  nodes <- lexvarsdatr::lvdr_tfm_collocates(tfm = tfm,
+                               target = target,
+                               n = n)
 
-  nodes <- reshape2::melt(nodes, id.vars = c('label'), variable.name = 'search_term')
-  nodes <- nodes[nodes$value >= tf_min | nodes$label %in% search,] #New
-  nodes <- nodes[order(-nodes$value), ]
+  nodes <- nodes[!duplicated(nodes[,c('feature')]),]
+  nodes <- subset(nodes, !feature %in% target)
+  xx <- max(nodes$cooc)
+  nodes <- rbind(nodes,
+                 data.frame(term = target,
+                            feature = target,
+                            cooc = xx))
+  nodes$group <- ifelse(nodes$feature %in% target, 'term', 'feature')
 
+  edges <- lexvarsdatr::lvdr_tfm_collocates(tfm = tfm,
+                               target = unique(nodes$feature))
 
-  nodes <- nodes[!duplicated(nodes[,c('label')]),] #
+  #friends of friends.
+  edges <- subset(edges, feature %in% unique(nodes$feature))
 
-  #nodes <- nodes[-2]
-  nodes$group <- ifelse(nodes$label %in% search, 'term', 'feature')
+  #Extract edges in which nodes are a part. To force inclusion.
+  edges_nodes <- subset(edges, term %in% target)
 
-  nodes$search_term <- ifelse(nodes$group == 'term', nodes$label, as.character(nodes$search_term))
+  edges <- edges[order(-edges$cooc), ]
 
-  nodes <- nodes[order(nodes$group, decreasing = TRUE), ]
-  rownames(nodes) <- NULL
+  #Per node, find n*1.5 most prevalent associations.
+  edges <- suppressWarnings(edges[ave(1:nrow(edges), nodes$term, FUN = seq_along) <= 1.5*n, ])
 
-  #Build edges
-  x <- y[rownames(y) %in% nodes$label,colnames(y) %in% nodes$label]
-  #x <- y[nodes$label,nodes$label]
-  x <- x[, order(colnames(x))]
-  x <- x[order(rownames(x)), ]
+  edges <- rbind(edges, edges_nodes)
+  edges <- unique(edges)
 
-  x <- data.frame(from = row.names(x), as.matrix(x),
-                stringsAsFactors = FALSE)
-  x <- reshape2::melt(x, id.vars = c('from'), variable.name = 'to')
-  x <- x[x$value > 0,]
-#x[!lower.tri(x)] <- 0
-
-  x <- data.frame(t(apply(x, 1, sort)), stringsAsFactors = FALSE)
-  x$X1 <- as.integer(x$X1)
-  x <- x[order(-x$X1), ]
-  #Need to filter 0 first.  Big matrices ngrams
-  x <- unique(x) #All unique forward/backword relationships -- filtered to max.
-  colnames(x) <- c('value', 'to', 'from')
-
-  edges <- subset(x, value >= ff_min)
-  rownames(edges) <- NULL
-  list(nodes=nodes, edges=edges)
+  colnames(edges) <- c('from', 'to', 'value')
+  colnames(nodes) <- c('term', 'label', 'value', 'group')
+  nodes <- nodes[, c('label', 'term','value', 'group')]
+  edges <- edges[, c('value', 'to', 'from')]
+  network <- list(nodes=nodes, edges=edges)
+  return(network)
 }

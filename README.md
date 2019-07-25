@@ -99,6 +99,7 @@ network %>%
   geom_edge_link(color = 'gray') + #alpha = 0.8
   geom_node_point(aes(size = value, color = group)) +
   geom_node_text(aes(label = label), repel = TRUE) +
+  theme(legend.position = 'none') +
   facet_wrap(~cue) #+
 ```
 

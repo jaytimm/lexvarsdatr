@@ -1,7 +1,8 @@
 #Build CELEX
 
 library(tidyverse)
-celex <- read.csv("C:\\Users\\jason\\Google Drive\\GitHub\\packages\\lexvarsdatr\\psycho\\RawData\\celex_Baayen_et_al_1995.csv")%>%
+setwd('/home/jtimm/jt_work/GitHub/packages/lexvarsdatr/psycho/RawData')
+celex <- read.csv("celex_Baayen_et_al_1995.csv")%>%
   mutate_all(as.character)
 
 
@@ -26,6 +27,8 @@ newcelex <- cbind(ids,classlist,flatlist)%>%
   ungroup()%>%
   mutate(flatlist=sub("\\]\\[.*$", "]", flatlist),fpos = paste(Word,"_",Class,sep=""))
 
+
+##All of this is a mess.  Killing PRE/SUF would kill CELEX-based functions.  Presently irritated with the whole mess.
 
 for (i in 1:nrow(newcelex)){
   if (newcelex$classlist[i]=="A" & newcelex$seqs[i]==1) {
