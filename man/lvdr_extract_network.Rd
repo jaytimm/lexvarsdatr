@@ -2,10 +2,9 @@
 % Please edit documentation in R/lvdr_extract_network.R
 \name{lvdr_extract_network}
 \alias{lvdr_extract_network}
-\alias{lvdr_build_network}
 \title{Query CELEX database}
 \usage{
-lvdr_build_network(tfm, target, n = 10)
+lvdr_extract_network(tfm, target, n = 10)
 }
 \arguments{
 \item{form}{A word or affix}

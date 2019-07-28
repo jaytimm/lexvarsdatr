@@ -10,11 +10,11 @@
 #' @export
 #' @rdname lvdr_extract_network
 
-lvdr_build_network <- function (tfm,
+lvdr_extract_network <- function (tfm,
                                 target,
                                 n = 10) {
 
-  nodes <- lexvarsdatr::lvdr_tfm_collocates(tfm = tfm,
+  nodes <- lexvarsdatr::lvdr_strip_cmatrix(tfm = tfm,
                                target = target,
                                n = n)
 
@@ -27,7 +27,7 @@ lvdr_build_network <- function (tfm,
                             cooc = xx))
   nodes$group <- ifelse(nodes$feature %in% target, 'term', 'feature')
 
-  edges <- lexvarsdatr::lvdr_tfm_collocates(tfm = tfm,
+  edges <- lexvarsdatr::lvdr_strip_cmatrix(tfm = tfm,
                                target = unique(nodes$feature))
 
   #friends of friends.
