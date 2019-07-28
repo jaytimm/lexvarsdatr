@@ -6,7 +6,7 @@
 #' @param form A word or affix
 #' @param type A part-of-speach (of universal variety) or "PRE"|"SUF"
 #' @return A data.frame
-
+#' @import data.table
 #' @export
 #' @rdname lvdr_strip_cmatrix
 #'

@@ -3,3 +3,4 @@
 export(lvdr_build_network)
 export(lvdr_build_sparse_ppmi)
 export(lvdr_strip_cmatrix)
+import(data.table)
