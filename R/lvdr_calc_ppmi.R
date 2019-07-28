@@ -17,7 +17,7 @@ lvdr_calc_ppmi <- function (pmat,
   pmat <- pmat[, order(colnames(pmat))] #1
   pmat <- pmat[order(rownames(pmat)), ]
 
-  if (make_symmatric) {
+  if (make_symmetric) {
     pmat <- Matrix::forceSymmetric(pmat)
   }
 
