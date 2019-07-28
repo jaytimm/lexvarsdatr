@@ -6,7 +6,9 @@
 #' @param form A word or affix
 #' @param type A part-of-speach (of universal variety) or "PRE"|"SUF"
 #' @return A data.frame
-
+#' @import data.table
+#'
+#'
 #' @export
 #' @rdname lvdr_extract_network
 
@@ -39,7 +41,7 @@ lvdr_extract_network <- function (tfm,
   edges <- edges[order(-edges$cooc), ]
 
   #Per node, find n*1.5 most prevalent associations.
-  edges <- suppressWarnings(edges[ave(1:nrow(edges), nodes$term, FUN = seq_along) <= 1.5*n, ])
+  edges <- edges[, head(.SD, n), by=term]
 
   edges <- rbind(edges, edges_nodes)
   edges <- unique(edges)
