@@ -4,7 +4,7 @@
 \alias{lvdr_build_sparse_ppmi}
 \title{Query CELEX database}
 \usage{
-lvdr_build_sparse_ppmi(pmat)
+lvdr_build_sparse_ppmi(pmat, make_symmatric = TRUE)
 }
 \arguments{
 \item{form}{A word or affix}

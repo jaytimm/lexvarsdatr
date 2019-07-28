@@ -10,7 +10,15 @@
 #' @export
 #' @rdname lvdr_build_sparse_ppmi
 
-lvdr_build_sparse_ppmi <- function (pmat) {
+lvdr_build_sparse_ppmi <- function (pmat, make_symmatric = TRUE) {
+
+  pmat <- as(pmat, 'dgCMatrix')
+  pmat <- pmat[, order(colnames(pmat))] #1
+  pmat <- pmat[order(rownames(pmat)), ]
+
+  if (make_symmatric) {
+    pmat <- Matrix::forceSymmetric(pmat)
+  }
 
   tcmrs <- Matrix::rowSums(pmat) +1 #Still -- for weights.
   tcmcs <- Matrix::colSums(pmat) +1
