@@ -16,7 +16,7 @@ lvdr_extract_network <- function (tfm,
                                 target,
                                 n = 10) {
 
-  nodes <- lexvarsdatr::lvdr_strip_cmatrix(tfm = tfm,
+  nodes <- lexvarsdatr::lvdr_get_closest(tfm = tfm,
                                target = target,
                                n = n)
 
@@ -29,7 +29,7 @@ lvdr_extract_network <- function (tfm,
                             cooc = xx))
   nodes$group <- ifelse(nodes$feature %in% target, 'term', 'feature')
 
-  edges <- lexvarsdatr::lvdr_strip_cmatrix(tfm = tfm,
+  edges <- lexvarsdatr::lvdr_get_closest(tfm = tfm,
                                target = unique(nodes$feature))
 
   #friends of friends.
