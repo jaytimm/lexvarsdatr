@@ -8,9 +8,10 @@
 #' @return A data.frame
 
 #' @export
-#' @rdname lvdr_build_sparse_ppmi
+#' @rdname lvdr_calc_ppmi
 
-lvdr_build_sparse_ppmi <- function (pmat, make_symmatric = TRUE) {
+lvdr_calc_ppmi <- function (pmat,
+                            make_symmetric = TRUE) {
 
   pmat <- as(pmat, 'dgCMatrix')
   pmat <- pmat[, order(colnames(pmat))] #1

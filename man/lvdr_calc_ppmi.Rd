@@ -2,9 +2,10 @@
 % Please edit documentation in R/lvdr_build_sparse_ppmi.R
 \name{lvdr_build_sparse_ppmi}
 \alias{lvdr_build_sparse_ppmi}
+\alias{lvdr_calc_ppmi}
 \title{Query CELEX database}
 \usage{
-lvdr_build_sparse_ppmi(pmat, make_symmatric = TRUE)
+lvdr_calc_ppmi(pmat, make_symmetric = TRUE)
 }
 \arguments{
 \item{form}{A word or affix}

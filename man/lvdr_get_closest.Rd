@@ -2,10 +2,10 @@
 % Please edit documentation in R/lvdr_strip_cmatrix.R
 \name{lvdr_extract_network}
 \alias{lvdr_extract_network}
-\alias{lvdr_strip_cmatrix}
+\alias{lvdr_get_closest}
 \title{Query CELEX database}
 \usage{
-lvdr_strip_cmatrix(tfm, target = NULL, n = NULL)
+lvdr_get_closest(tfm, target = NULL, n = NULL)
 }
 \arguments{
 \item{form}{A word or affix}

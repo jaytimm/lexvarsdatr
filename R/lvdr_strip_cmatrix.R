@@ -8,13 +8,13 @@
 #' @return A data.frame
 #' @import data.table
 #' @export
-#' @rdname lvdr_strip_cmatrix
+#' @rdname lvdr_get_closest
 #'
 
 
-lvdr_strip_cmatrix <- function (tfm,
-                                 target = NULL,
-                                 n = NULL) { #y = NULL -> full collocate data frame.
+lvdr_get_closest <- function (tfm,
+                              target = NULL,
+                              n = NULL) { #y = NULL -> full collocate data frame.
   tfm <- as(tfm, 'dgCMatrix')
 
   if(is.null(target)) {ft <- tfm} else {
