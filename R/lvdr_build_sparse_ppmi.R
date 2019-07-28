@@ -12,10 +12,10 @@
 
 lvdr_build_sparse_ppmi <- function (pmat) {
 
-  tcmrs <- Matrix::rowSums(pmat)
-  tcmcs <- Matrix::colSums(pmat)
+  tcmrs <- Matrix::rowSums(pmat) +1 #Still -- for weights.
+  tcmcs <- Matrix::colSums(pmat) +1
 
-  N <- sum(tcmrs)
+  N <- sum(tcmrs) ## Compute relative frequency
   colp <- tcmcs/N
   rowp <- tcmrs/N
 
@@ -27,11 +27,13 @@ lvdr_build_sparse_ppmi <- function (pmat) {
   for(i in 1:(length(pmat@p)-1) ){
     ind <- pp[i]:(pp[i+1]-1)
     not0 <- ip[ind]
-    icol <- pmat@x[ind]
-    tmp <- log( (icol/N) / (rowp[not0] * colp[i] )) #PMI
-    tmpx[ind] <- tmp
-  }
+
+    icol <- pmat@x[ind]  ## Co-occur frequency
+    tmp <- log( (icol/N) / (rowp[not0] * colp[i])) #PMI
+    tmpx[ind] <- tmp}
 
   pmat@x <- tmpx
-  pmat@x[pmat@x < 0] <- 0 ##PPMI
-  Matrix::drop0(pmat, tol=0) }
+  pmat@x[pmat@x <= 0] <- 0 ##PPMI
+  pmat@x[!is.finite(pmat@x)] <- 0
+  pmat <- Matrix::drop0(pmat, tol=0)
+}
