@@ -173,16 +173,16 @@ lexvarsdatr::lvdr_get_closest(tfm = cos_sim,
 
 | term    | feature       |       cooc|
 |:--------|:--------------|----------:|
-| SCIENCE | RESEARCH      |  0.5653915|
-| SCIENCE | TECHNOLOGY    |  0.5613850|
-| SCIENCE | SCIENTIFIC    |  0.4302308|
-| SCIENCE | SPACE         |  0.4026960|
-| SCIENCE | TECHNOLOGICAL |  0.3858248|
-| TARIFF  | TAXATION      |  0.4862957|
-| TARIFF  | AD            |  0.4095632|
-| TARIFF  | PROTECTIVE    |  0.4077968|
-| TARIFF  | REVENUE       |  0.3908450|
-| TARIFF  | IMPORTATIONS  |  0.3863288|
+| SCIENCE | RESEARCH      |  0.5653924|
+| SCIENCE | TECHNOLOGY    |  0.5614627|
+| SCIENCE | SCIENTIFIC    |  0.4301978|
+| SCIENCE | SPACE         |  0.4027220|
+| SCIENCE | TECHNOLOGICAL |  0.3857988|
+| TARIFF  | TAXATION      |  0.4863240|
+| TARIFF  | AD            |  0.4095951|
+| TARIFF  | PROTECTIVE    |  0.4077690|
+| TARIFF  | REVENUE       |  0.3908646|
+| TARIFF  | IMPORTATIONS  |  0.3863412|
 
 ### § Build network structure
 
