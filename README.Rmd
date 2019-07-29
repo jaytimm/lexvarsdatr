@@ -155,7 +155,7 @@ network <- lexvarsdatr::lvdr_extract_network (tfm = tcm_ppmi,
 
 **Quick note**: Algorithms like `GloVe`, `SVD` & `word2vec` abstract over the term-feature associations that underlie (distributionally-derived) semantic relationships.  Visualizing the network structure of semantically related terms based in actual co-occurrence can help shed light on the sources of relatedness in ways that, eg, latent dimensions cannot.
 
-**The plot below** illustrates the network structure (based on the PPMI term-feature matrix for the SOTU corpus) for a set of semantically related terms: ENEMY, ALLY, FRIEND, and PARTNER.  Terms are identified as triangles; features as circles. Color is used to specify primary term-feature relationships.  
+**The plot below** illustrates the network structure (based on the PPMI term-feature matrix for the SOTU corpus) for a set of semantically related terms: ENEMY, ALLY, FRIEND, and PARTNER.  Terms are identified as triangles; features as circles. Color is used to specify primary term-feature relationships. Circle size specifies the (relative) strength of association between primary term and feature.
 
 ```{r fig.height=7, message=FALSE, warning=FALSE}
 set.seed(66)

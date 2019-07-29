@@ -173,16 +173,16 @@ lexvarsdatr::lvdr_get_closest(tfm = cos_sim,
 
 | term    | feature       |       cooc|
 |:--------|:--------------|----------:|
-| SCIENCE | RESEARCH      |  0.5653907|
-| SCIENCE | TECHNOLOGY    |  0.5613760|
-| SCIENCE | SCIENTIFIC    |  0.4302338|
-| SCIENCE | SPACE         |  0.4026850|
-| SCIENCE | TECHNOLOGICAL |  0.3858406|
-| TARIFF  | TAXATION      |  0.4862901|
-| TARIFF  | AD            |  0.4095532|
-| TARIFF  | PROTECTIVE    |  0.4078698|
-| TARIFF  | REVENUE       |  0.3908378|
-| TARIFF  | IMPORTATIONS  |  0.3863251|
+| SCIENCE | RESEARCH      |  0.5653614|
+| SCIENCE | TECHNOLOGY    |  0.5614716|
+| SCIENCE | SCIENTIFIC    |  0.4301783|
+| SCIENCE | SPACE         |  0.4027081|
+| SCIENCE | TECHNOLOGICAL |  0.3857779|
+| TARIFF  | TAXATION      |  0.4863071|
+| TARIFF  | AD            |  0.4095970|
+| TARIFF  | PROTECTIVE    |  0.4077713|
+| TARIFF  | REVENUE       |  0.3908691|
+| TARIFF  | IMPORTATIONS  |  0.3863290|
 
 ### § Build network structure
 
@@ -223,7 +223,8 @@ that, eg, latent dimensions cannot.
 term-feature matrix for the SOTU corpus) for a set of semantically
 related terms: ENEMY, ALLY, FRIEND, and PARTNER. Terms are identified as
 triangles; features as circles. Color is used to specify primary
-term-feature relationships.
+term-feature relationships. Circle size specifies the (relative)
+strength of association between primary term and feature.
 
 ``` r
 set.seed(66)
