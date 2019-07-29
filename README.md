@@ -1,11 +1,13 @@
 lexvarsdatr
------------
+===========
 
 An R package: some tools for investigating lexical variation from both
-behavioral and distributional perspectives. Including (1) a collection
-of psycholinguistic/behavioral data sets & (2) some functions for
-extracting semantic associations and network structures from
-term-feature matrices.
+behavioral and distributional perspectives. Including:
+
+1.  A collection of psycholinguistic/behavioral data sets, &
+
+2.  A few functions for extracting semantic associations and network
+    structures from term-feature matrices.
 
 Installation
 ------------
@@ -94,12 +96,11 @@ tcm <- text2vec::create_tcm(t2v_ents,
                            weight = c(1,1,1,1,1)) #No weight
 ```
 
-<br>
-
 ### § Build PPMI Matrix
 
-A simple function for transforming a count-based co-occurrence matrix to
-a positive-pointwise mutual information matrix, modified from this [SO
+The `lvdr_calc_ppmi` function transforms a count-based co-occurrence
+matrix to a positive-pointwise mutual information matrix, modified from
+this [SO
 post](https://stackoverflow.com/questions/43354479/how-to-efficiently-calculate-ppmi-on-a-sparse-matrix-in-r).
 
 ``` r
@@ -172,16 +173,16 @@ lexvarsdatr::lvdr_get_closest(tfm = cos_sim,
 
 | term    | feature       |       cooc|
 |:--------|:--------------|----------:|
-| SCIENCE | RESEARCH      |  0.5653509|
-| SCIENCE | TECHNOLOGY    |  0.5615275|
-| SCIENCE | SCIENTIFIC    |  0.4301516|
-| SCIENCE | SPACE         |  0.4027205|
-| SCIENCE | TECHNOLOGICAL |  0.3857517|
-| TARIFF  | TAXATION      |  0.4863091|
-| TARIFF  | AD            |  0.4095939|
-| TARIFF  | PROTECTIVE    |  0.4077771|
-| TARIFF  | REVENUE       |  0.3908608|
-| TARIFF  | IMPORTATIONS  |  0.3863294|
+| SCIENCE | RESEARCH      |  0.5653564|
+| SCIENCE | TECHNOLOGY    |  0.5615015|
+| SCIENCE | SCIENTIFIC    |  0.4301549|
+| SCIENCE | SPACE         |  0.4027123|
+| SCIENCE | TECHNOLOGICAL |  0.3857597|
+| TARIFF  | TAXATION      |  0.4863026|
+| TARIFF  | AD            |  0.4095782|
+| TARIFF  | PROTECTIVE    |  0.4077984|
+| TARIFF  | REVENUE       |  0.3908494|
+| TARIFF  | IMPORTATIONS  |  0.3863322|
 
 ### § Build network structure
 
@@ -212,12 +213,13 @@ network <- lexvarsdatr::lvdr_extract_network (tfm = tcm_ppmi,
 ```
 
 **Quick note**: Algorithms like `GloVe`, `SVD` & `word2vec` abstract
-over the term-feature associations that underlie semantic relationships.
-Visualizing the network structure of semantically related terms based in
-actual co-occurrence can help shed light on the sources of relatedness
-in ways that, eg, latent dimensions cannot.
+over the term-feature associations that underlie
+(distributionally-derived) semantic relationships. Visualizing the
+network structure of semantically related terms based in actual
+co-occurrence can help shed light on the sources of relatedness in ways
+that, eg, latent dimensions cannot.
 
-The plot below illustrates the network structure (based on the PPMI
+**The plot below** illustrates the network structure (based on the PPMI
 term-feature matrix for the SOTU corpus) for a set of semantically
 related terms: ENEMY, ALLY, FRIEND, and PARTNER. Terms are identified as
 triangles; features as circles. Color is used to specify primary
