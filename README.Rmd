@@ -188,7 +188,8 @@ network %>%
 ```{r fig.height=7, message=FALSE, warning=FALSE}
 network2 <- lexvarsdatr::lvdr_extract_network(
   tfm = lexvarsdatr::lvdr_association_sparse,
-  target = toupper(c('enemy', 'friend', 'partner','ally')), 
+  target = toupper(c('enemy', 'ally', 
+                     'friend', 'partner')), 
   n = 15)
 
 set.seed(11)
