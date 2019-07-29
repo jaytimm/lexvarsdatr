@@ -6,13 +6,13 @@ output:
 ---
 
 
-#lexvarsdatr
+# lexvarsdatr
 
 An R package: some tools for investigating lexical variation from both behavioral and distributional perspectives. Including (1) a collection of psycholinguistic/behavioral data sets & (2) some functions for extracting semantic associations and network structures from term-feature matrices.
 
 
 
-##Installation
+## Installation
 
 ```{r message=FALSE, warning=FALSE, paged.print=FALSE}
 library(devtools)
@@ -22,7 +22,7 @@ library(lexvarsdatr)
 
 
 
-##Usage
+## Usage
 
 ### Behavioral data
 
@@ -36,7 +36,7 @@ knitr::kable(data.frame(Data=Data, Source=Source))
 ```
 
 
-
+<br>
 Response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`.  Approximately 18K word forms are included in all three data sets.  
 
 ```{r message=FALSE, warning=FALSE}
@@ -44,8 +44,8 @@ library(tidyverse)
 lexvarsdatr::lvdr_behav_data %>% na.omit %>% head()
 ```
 
-
-The South Florida word association data can be accessed via `lvdr_association`.  A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/).  Word association data is also available as as sparse matrix, `lvdr_association_sparse`.
+<br>
+The **South Florida word association data** can be accessed via `lvdr_association`.  A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/).  Word association data is also available as as sparse matrix, `lvdr_association_sparse`.
 
 
 
@@ -77,7 +77,7 @@ tcm <- text2vec::create_tcm(t2v_ents,
 ```
 
 
-
+<br>
 
 #### Build PPMI Matrix
 
@@ -89,13 +89,13 @@ tcm_ppmi <- tcm %>%
 ```
 
 
-
+<br>
 
 #### Get collocates/neighbors, etc.
 
-The `lvdr_get_closest` function can be used to extract the *n* highest scoring features associated with a term (or set of terms) from a term-feature matrix.  Assumes a column-oriented matrix (`dgCMatrix`) as input. `data.table` dependency. Modified from the `udpipe::as.cooccurrence()` function. 
+The `lvdr_get_closest` function can be used to extract the `n` highest scoring features associated with a term (or set of terms) from a term-feature matrix.  Assumes a column-oriented matrix (`dgCMatrix`) as input. `data.table` dependency. Modified from the `udpipe::as.cooccurrence()` function. 
 
-In the case of the SOTU PPMI co-occurrence matrix created above, we extract the ten strongest *collocates* of the term VIOLENCE. Output is a simple data frame.   
+Per the SOTU PPMI co-occurrence matrix created above, we extract the ten strongest **collocates** of the term VIOLENCE. Output is a simple data frame.   
 
 
 ```{r message=FALSE, warning=FALSE}
@@ -108,7 +108,7 @@ lexvarsdatr::lvdr_get_closest(tfm = tcm_ppmi,
 
 
 
-
+<br>
 The function can also be used to extract **nearest neighbors** from a cosine similarity matrix.  To demonstrate, we (1) consolidate feature set to 150 latent dimensions via singular-value decomposition, and then (2) construct cosine-based, term-term similarity matrix.
 
 
@@ -127,19 +127,19 @@ cos_sim <- text2vec::sim2(x = tcm_svd1,
 
 
 
-
-Per matrix, we extract the five closest *neighbors* (ie, ~synonyms) for the terms TARIFF and ALLY.  NOTE: Depending on the extent of the vocabulary,    ... and distinguish collocates ~ neighbors.
+<br>
+Per matrix, we extract the five closest **neighbors** (ie, ~synonyms) for the terms TARIFF and SCIENCE.  
 
 ```{r message=FALSE, warning=FALSE}
 #library(data.table)
 lexvarsdatr::lvdr_get_closest(tfm = cos_sim, 
-                              target = c('TARIFF','ALLY'), 
+                              target = c('TARIFF','SCIENCE'), 
                               n = 5) %>%
   knitr::kable(row.names = FALSE)
 ```
 
 
-
+<br>
 
 #### Build network structure
 
@@ -157,8 +157,9 @@ network <- lexvarsdatr::lvdr_extract_network (tfm = tcm_ppmi,
                                               n = 15)
 ```
 
+<br>
 
-Quick note: Algorithms like `GloVe`, `SVD` & `word2vec` abstract over the term-feature associations that underlie semantic relationships.  Visualizing the network structure of semantically related terms based in actual co-occurrence can help shed light on the sources of relatedness in ways that, eg, latent dimensions cannot.
+**Quick note**: Algorithms like `GloVe`, `SVD` & `word2vec` abstract over the term-feature associations that underlie semantic relationships.  Visualizing the network structure of semantically related terms based in actual co-occurrence can help shed light on the sources of relatedness in ways that, eg, latent dimensions cannot.
 
 The plot below illustrates the network structure (based on the PPMI term-feature matrix for the SOTU corpus) for a set of semantically related terms: ENEMY, ALLY, FRIEND, and PARTNER.  Terms are identified as triangles; features as circles. Color is used to specify primary term-feature relationships.  
 
@@ -181,17 +182,15 @@ network %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  theme(legend.position = "none",
-        plot.title = element_text(size=11),
-        axis.text.x = element_blank(),
-        axis.text.y = element_blank())
+  theme(legend.position = "none")
 ```
 
 
    
 
+<br>
 
-Another example using the word association data set:
+Another take using the word association data set, `lvdr_association_sparse`:
 
 
 ```{r fig.height=7, message=FALSE, warning=FALSE}
@@ -218,10 +217,7 @@ network2 %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  theme(legend.position = "none",
-        plot.title = element_text(size=11),
-        axis.text.x = element_blank(),
-        axis.text.y = element_blank())
+  theme(legend.position = "none")
 ```
 
 

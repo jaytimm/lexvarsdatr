@@ -1,4 +1,5 @@
-\#lexvarsdatr
+lexvarsdatr
+===========
 
 An R package: some tools for investigating lexical variation from both
 behavioral and distributional perspectives. Including (1) a collection
@@ -6,7 +7,8 @@ of psycholinguistic/behavioral data sets & (2) some functions for
 extracting semantic associations and network structures from
 term-feature matrices.
 
-\#\#Installation
+Installation
+------------
 
 ``` r
 library(devtools)
@@ -14,7 +16,8 @@ library(devtools)
 library(lexvarsdatr) 
 ```
 
-\#\#Usage
+Usage
+-----
 
 ### Behavioral data
 
@@ -29,9 +32,10 @@ ratings, and word association norms. Sources are presented below:
 | AoA ratings                 | Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). Age-of-acquisition ratings for 30,000 English words. *Behavior Research Methods*, 44(4), 978-990.                                                  |
 | Word association            | Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South Florida free association, rhyme, and word fragment norms. *Behavior Research Methods, Instruments, & Computers*, 36(3), 402-407. |
 
-Response times in lexical decision/naming, concreteness ratings, and AoA
-ratings have been collated into a single data frame, `lex_behav_data`.
-Approximately 18K word forms are included in all three data sets.
+<br> Response times in lexical decision/naming, concreteness ratings,
+and AoA ratings have been collated into a single data frame,
+`lex_behav_data`. Approximately 18K word forms are included in all three
+data sets.
 
 ``` r
 library(tidyverse)
@@ -53,7 +57,7 @@ lexvarsdatr::lvdr_behav_data %>% na.omit %>% head()
     ## 27 201.23     10.50  1.79       3.10   1.54          16
     ## 28 149.43      9.11  2.37       3.07   1.51          12
 
-The South Florida word association data can be accessed via
+<br> The **South Florida word association data** can be accessed via
 `lvdr_association`. A description of variables included in the normed
 data set, as well as methodologies, can be found
 [here](http://w3.usf.edu/FreeAssociation/). Word association data is
@@ -91,6 +95,8 @@ tcm <- text2vec::create_tcm(t2v_ents,
                            weight = c(1,1,1,1,1)) #No weight
 ```
 
+<br>
+
 #### Build PPMI Matrix
 
 A simple function for transforming a count-based co-occurrence matrix to
@@ -102,17 +108,19 @@ tcm_ppmi <- tcm %>%
   lexvarsdatr::lvdr_calc_ppmi(make_symmetric = TRUE)
 ```
 
+<br>
+
 #### Get collocates/neighbors, etc.
 
-The `lvdr_get_closest` function can be used to extract the *n* highest
+The `lvdr_get_closest` function can be used to extract the `n` highest
 scoring features associated with a term (or set of terms) from a
 term-feature matrix. Assumes a column-oriented matrix (`dgCMatrix`) as
 input. `data.table` dependency. Modified from the
 `udpipe::as.cooccurrence()` function.
 
-In the case of the SOTU PPMI co-occurrence matrix created above, we
-extract the ten strongest *collocates* of the term VIOLENCE. Output is a
-simple data frame.
+Per the SOTU PPMI co-occurrence matrix created above, we extract the ten
+strongest **collocates** of the term VIOLENCE. Output is a simple data
+frame.
 
 ``` r
 lexvarsdatr::lvdr_get_closest(tfm = tcm_ppmi, 
@@ -136,10 +144,10 @@ lexvarsdatr::lvdr_get_closest(tfm = tcm_ppmi,
 | VIOLENCE | MEDIA        |  5.672473|
 | VIOLENCE | SUPPRESSING  |  5.644302|
 
-The function can also be used to extract **nearest neighbors** from a
-cosine similarity matrix. To demonstrate, we (1) consolidate feature set
-to 150 latent dimensions via singular-value decomposition, and then (2)
-construct cosine-based, term-term similarity matrix.
+<br> The function can also be used to extract **nearest neighbors** from
+a cosine similarity matrix. To demonstrate, we (1) consolidate feature
+set to 150 latent dimensions via singular-value decomposition, and then
+(2) construct cosine-based, term-term similarity matrix.
 
 ``` r
 tcm_svd <-  irlba::irlba (tcm_ppmi, nv = 150)
@@ -154,30 +162,31 @@ cos_sim <- text2vec::sim2(x = tcm_svd1,
                           norm = 'l2')
 ```
 
-Per matrix, we extract the five closest *neighbors* (ie, \~synonyms) for
-the terms TARIFF and ALLY. NOTE: Depending on the extent of the
-vocabulary, … and distinguish collocates \~ neighbors.
+<br> Per matrix, we extract the five closest **neighbors** (ie,
+\~synonyms) for the terms TARIFF and SCIENCE.
 
 ``` r
 #library(data.table)
 lexvarsdatr::lvdr_get_closest(tfm = cos_sim, 
-                              target = c('TARIFF','ALLY'), 
+                              target = c('TARIFF','SCIENCE'), 
                               n = 5) %>%
   knitr::kable(row.names = FALSE)
 ```
 
-| term   | feature      |       cooc|
-|:-------|:-------------|----------:|
-| ALLY   | CHAOS        |  0.4025222|
-| ALLY   | ANCIENT      |  0.3767013|
-| ALLY   | FRIEND       |  0.3755667|
-| ALLY   | DENY         |  0.3472773|
-| ALLY   | DESTINIES    |  0.3169409|
-| TARIFF | TAXATION     |  0.4863110|
-| TARIFF | AD           |  0.4095899|
-| TARIFF | PROTECTIVE   |  0.4077821|
-| TARIFF | REVENUE      |  0.3908605|
-| TARIFF | IMPORTATIONS |  0.3863326|
+| term    | feature       |       cooc|
+|:--------|:--------------|----------:|
+| SCIENCE | RESEARCH      |  0.5653483|
+| SCIENCE | TECHNOLOGY    |  0.5614905|
+| SCIENCE | SCIENTIFIC    |  0.4301217|
+| SCIENCE | SPACE         |  0.4027448|
+| SCIENCE | TECHNOLOGICAL |  0.3857535|
+| TARIFF  | TAXATION      |  0.4863175|
+| TARIFF  | AD            |  0.4095989|
+| TARIFF  | PROTECTIVE    |  0.4077394|
+| TARIFF  | REVENUE       |  0.3908626|
+| TARIFF  | IMPORTATIONS  |  0.3863273|
+
+<br>
 
 #### Build network structure
 
@@ -206,8 +215,10 @@ network <- lexvarsdatr::lvdr_extract_network (tfm = tcm_ppmi,
                                               n = 15)
 ```
 
-Quick note: Algorithms like `GloVe`, `SVD` & `word2vec` abstract over
-the term-feature associations that underlie semantic relationships.
+<br>
+
+**Quick note**: Algorithms like `GloVe`, `SVD` & `word2vec` abstract
+over the term-feature associations that underlie semantic relationships.
 Visualizing the network structure of semantically related terms based in
 actual co-occurrence can help shed light on the sources of relatedness
 in ways that, eg, latent dimensions cannot.
@@ -237,15 +248,15 @@ network %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  theme(legend.position = "none",
-        plot.title = element_text(size=11),
-        axis.text.x = element_blank(),
-        axis.text.y = element_blank())
+  theme(legend.position = "none")
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
-Another example using the word association data set:
+<br>
+
+Another take using the word association data set,
+`lvdr_association_sparse`:
 
 ``` r
 network2 <- lexvarsdatr::lvdr_extract_network(
@@ -271,10 +282,7 @@ network2 %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  theme(legend.position = "none",
-        plot.title = element_text(size=11),
-        axis.text.x = element_blank(),
-        axis.text.y = element_blank())
+  theme(legend.position = "none")
 ```
 
 ![](README_files/figure-markdown_github/unnamed-chunk-11-1.png)
