@@ -1,5 +1,5 @@
 lexvarsdatr
-===========
+-----------
 
 An R package: some tools for investigating lexical variation from both
 behavioral and distributional perspectives. Including (1) a collection
@@ -12,7 +12,7 @@ Installation
 
 ``` r
 library(devtools)
-#devtools::install_github("jaytimm/lexvarsdatr")
+devtools::install_github("jaytimm/lexvarsdatr")
 library(lexvarsdatr) 
 ```
 
@@ -32,10 +32,9 @@ ratings, and word association norms. Sources are presented below:
 | AoA ratings                 | Kuperman, V., Stadthagen-Gonzalez, H., & Brysbaert, M. (2012). Age-of-acquisition ratings for 30,000 English words. *Behavior Research Methods*, 44(4), 978-990.                                                  |
 | Word association            | Nelson, D. L., McEvoy, C. L., & Schreiber, T. A. (2004). The University of South Florida free association, rhyme, and word fragment norms. *Behavior Research Methods, Instruments, & Computers*, 36(3), 402-407. |
 
-<br> Response times in lexical decision/naming, concreteness ratings,
-and AoA ratings have been collated into a single data frame,
-`lex_behav_data`. Approximately 18K word forms are included in all three
-data sets.
+Response times in lexical decision/naming, concreteness ratings, and AoA
+ratings have been collated into a single data frame, `lex_behav_data`.
+Approximately 18K word forms are included in all three data sets.
 
 ``` r
 library(tidyverse)
@@ -57,7 +56,7 @@ lexvarsdatr::lvdr_behav_data %>% na.omit %>% head()
     ## 27 201.23     10.50  1.79       3.10   1.54          16
     ## 28 149.43      9.11  2.37       3.07   1.51          12
 
-<br> The **South Florida word association data** can be accessed via
+The **South Florida word association data** can be accessed via
 `lvdr_association`. A description of variables included in the normed
 data set, as well as methodologies, can be found
 [here](http://w3.usf.edu/FreeAssociation/). Word association data is
@@ -97,7 +96,7 @@ tcm <- text2vec::create_tcm(t2v_ents,
 
 <br>
 
-#### Build PPMI Matrix
+### § Build PPMI Matrix
 
 A simple function for transforming a count-based co-occurrence matrix to
 a positive-pointwise mutual information matrix, modified from this [SO
@@ -108,9 +107,7 @@ tcm_ppmi <- tcm %>%
   lexvarsdatr::lvdr_calc_ppmi(make_symmetric = TRUE)
 ```
 
-<br>
-
-#### Get collocates/neighbors, etc.
+### § Get collocates, neighbors, etc.
 
 The `lvdr_get_closest` function can be used to extract the `n` highest
 scoring features associated with a term (or set of terms) from a
@@ -144,10 +141,10 @@ lexvarsdatr::lvdr_get_closest(tfm = tcm_ppmi,
 | VIOLENCE | MEDIA        |  5.672473|
 | VIOLENCE | SUPPRESSING  |  5.644302|
 
-<br> The function can also be used to extract **nearest neighbors** from
-a cosine similarity matrix. To demonstrate, we (1) consolidate feature
-set to 150 latent dimensions via singular-value decomposition, and then
-(2) construct cosine-based, term-term similarity matrix.
+The function can also be used to extract **nearest neighbors** from a
+cosine similarity matrix. To demonstrate, we (1) consolidate feature set
+to 150 latent dimensions via singular-value decomposition, and then (2)
+construct cosine-based, term-term similarity matrix.
 
 ``` r
 tcm_svd <-  irlba::irlba (tcm_ppmi, nv = 150)
@@ -162,8 +159,8 @@ cos_sim <- text2vec::sim2(x = tcm_svd1,
                           norm = 'l2')
 ```
 
-<br> Per matrix, we extract the five closest **neighbors** (ie,
-\~synonyms) for the terms TARIFF and SCIENCE.
+Per matrix, we extract the five **nearest neighbors** (ie, \~synonyms)
+for the terms TARIFF and SCIENCE.
 
 ``` r
 #library(data.table)
@@ -175,20 +172,18 @@ lexvarsdatr::lvdr_get_closest(tfm = cos_sim,
 
 | term    | feature       |       cooc|
 |:--------|:--------------|----------:|
-| SCIENCE | RESEARCH      |  0.5653483|
-| SCIENCE | TECHNOLOGY    |  0.5614905|
-| SCIENCE | SCIENTIFIC    |  0.4301217|
-| SCIENCE | SPACE         |  0.4027448|
-| SCIENCE | TECHNOLOGICAL |  0.3857535|
-| TARIFF  | TAXATION      |  0.4863175|
-| TARIFF  | AD            |  0.4095989|
-| TARIFF  | PROTECTIVE    |  0.4077394|
-| TARIFF  | REVENUE       |  0.3908626|
-| TARIFF  | IMPORTATIONS  |  0.3863273|
+| SCIENCE | RESEARCH      |  0.5653509|
+| SCIENCE | TECHNOLOGY    |  0.5615275|
+| SCIENCE | SCIENTIFIC    |  0.4301516|
+| SCIENCE | SPACE         |  0.4027205|
+| SCIENCE | TECHNOLOGICAL |  0.3857517|
+| TARIFF  | TAXATION      |  0.4863091|
+| TARIFF  | AD            |  0.4095939|
+| TARIFF  | PROTECTIVE    |  0.4077771|
+| TARIFF  | REVENUE       |  0.3908608|
+| TARIFF  | IMPORTATIONS  |  0.3863294|
 
-<br>
-
-#### Build network structure
+### § Build network structure
 
 The `lvdr_extract_network` function extracts the network structure for a
 term (or set of terms) from a term-feature matrix (again, as
@@ -197,14 +192,15 @@ list that includes a `node` data frame and an `edges` data frame,
 structured to play nice with the `tidygraph` and `ggraph` plotting
 paradigms.
 
-The number of nodes (per term) to include in the network is specified by
-the `n` parameter, ie, the `n` highest scoring features associated with
-a term from a term-feature matrix. Term-nodes and feature-nodes are
-distinguished in the output for visualization purposes. If multiple
-terms are specified, nodes are filtered to the strongest (ie, primary)
-term-feature relationships (to remove potential duplicates).
+The number of **nodes** (per term) to include in the network is
+specified by the `n` parameter, ie, the `n` highest scoring features
+associated with a term from a term-feature matrix. Term-nodes and
+feature-nodes are distinguished in the output for visualization
+purposes. If multiple terms are specified, nodes are filtered to the
+strongest (ie, primary) term-feature relationships (to remove potential
+duplicates).
 
-Edges include the `n`-highest scoring term-feature associations for
+**Edges** include the `n`-highest scoring term-feature associations for
 specified terms, as well as the `n` most frequent node-node associations
 per node (term & feature).
 
@@ -214,8 +210,6 @@ network <- lexvarsdatr::lvdr_extract_network (tfm = tcm_ppmi,
                                                                  'friend', 'partner')),
                                               n = 15)
 ```
-
-<br>
 
 **Quick note**: Algorithms like `GloVe`, `SVD` & `word2vec` abstract
 over the term-feature associations that underlie semantic relationships.
@@ -253,9 +247,7 @@ network %>%
 
 ![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
-<br>
-
-Another take using the word association data set,
+**Another take** using the word association data set,
 `lvdr_association_sparse`:
 
 ``` r

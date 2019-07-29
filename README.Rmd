@@ -6,7 +6,7 @@ output:
 ---
 
 
-# lexvarsdatr
+## lexvarsdatr
 
 An R package: some tools for investigating lexical variation from both behavioral and distributional perspectives. Including (1) a collection of psycholinguistic/behavioral data sets & (2) some functions for extracting semantic associations and network structures from term-feature matrices.
 
@@ -14,9 +14,9 @@ An R package: some tools for investigating lexical variation from both behaviora
 
 ## Installation
 
-```{r message=FALSE, warning=FALSE, paged.print=FALSE}
+```{r eval = FALSE, message=FALSE, warning=FALSE, paged.print=FALSE}
 library(devtools)
-#devtools::install_github("jaytimm/lexvarsdatr")
+devtools::install_github("jaytimm/lexvarsdatr")
 library(lexvarsdatr) 
 ```
 
@@ -36,7 +36,6 @@ knitr::kable(data.frame(Data=Data, Source=Source))
 ```
 
 
-<br>
 Response times in lexical decision/naming, concreteness ratings, and AoA ratings have been collated into a single data frame, `lex_behav_data`.  Approximately 18K word forms are included in all three data sets.  
 
 ```{r message=FALSE, warning=FALSE}
@@ -44,7 +43,7 @@ library(tidyverse)
 lexvarsdatr::lvdr_behav_data %>% na.omit %>% head()
 ```
 
-<br>
+
 The **South Florida word association data** can be accessed via `lvdr_association`.  A description of variables included in the normed data set, as well as methodologies, can be found [here](http://w3.usf.edu/FreeAssociation/).  Word association data is also available as as sparse matrix, `lvdr_association_sparse`.
 
 
@@ -79,7 +78,7 @@ tcm <- text2vec::create_tcm(t2v_ents,
 
 <br>
 
-#### Build PPMI Matrix
+### § Build PPMI Matrix
 
 A simple function for transforming a count-based co-occurrence matrix to a positive-pointwise mutual information matrix, modified from this [SO post](https://stackoverflow.com/questions/43354479/how-to-efficiently-calculate-ppmi-on-a-sparse-matrix-in-r).
 
@@ -89,9 +88,7 @@ tcm_ppmi <- tcm %>%
 ```
 
 
-<br>
-
-#### Get collocates/neighbors, etc.
+### § Get collocates, neighbors, etc.
 
 The `lvdr_get_closest` function can be used to extract the `n` highest scoring features associated with a term (or set of terms) from a term-feature matrix.  Assumes a column-oriented matrix (`dgCMatrix`) as input. `data.table` dependency. Modified from the `udpipe::as.cooccurrence()` function. 
 
@@ -108,7 +105,6 @@ lexvarsdatr::lvdr_get_closest(tfm = tcm_ppmi,
 
 
 
-<br>
 The function can also be used to extract **nearest neighbors** from a cosine similarity matrix.  To demonstrate, we (1) consolidate feature set to 150 latent dimensions via singular-value decomposition, and then (2) construct cosine-based, term-term similarity matrix.
 
 
@@ -127,8 +123,7 @@ cos_sim <- text2vec::sim2(x = tcm_svd1,
 
 
 
-<br>
-Per matrix, we extract the five closest **neighbors** (ie, ~synonyms) for the terms TARIFF and SCIENCE.  
+Per matrix, we extract the five **nearest neighbors** (ie, ~synonyms) for the terms TARIFF and SCIENCE.  
 
 ```{r message=FALSE, warning=FALSE}
 #library(data.table)
@@ -139,15 +134,13 @@ lexvarsdatr::lvdr_get_closest(tfm = cos_sim,
 ```
 
 
-<br>
-
-#### Build network structure
+### § Build network structure
 
 The `lvdr_extract_network` function extracts the network structure for a term (or set of terms) from a term-feature matrix (again, as `dgCMatrix`).  The function is built on `lvdr_get_closest()`.  Output is a list that includes a `node` data frame and an `edges` data frame, structured to play nice with the `tidygraph` and `ggraph` plotting paradigms.
 
-The number of nodes (per term) to include in the network is specified by the `n` parameter, ie, the `n` highest scoring features associated with a term from a term-feature matrix.  Term-nodes and feature-nodes are distinguished in the output for visualization purposes.  If multiple terms are specified, nodes are filtered to the strongest (ie, primary) term-feature relationships (to remove potential duplicates).  
+The number of **nodes** (per term) to include in the network is specified by the `n` parameter, ie, the `n` highest scoring features associated with a term from a term-feature matrix.  Term-nodes and feature-nodes are distinguished in the output for visualization purposes.  If multiple terms are specified, nodes are filtered to the strongest (ie, primary) term-feature relationships (to remove potential duplicates).  
 
-Edges include the `n`-highest scoring term-feature associations for specified terms, as well as the `n` most frequent node-node associations per node (term & feature).  
+**Edges** include the `n`-highest scoring term-feature associations for specified terms, as well as the `n` most frequent node-node associations per node (term & feature).  
 
 
 ```{r}
@@ -157,7 +150,6 @@ network <- lexvarsdatr::lvdr_extract_network (tfm = tcm_ppmi,
                                               n = 15)
 ```
 
-<br>
 
 **Quick note**: Algorithms like `GloVe`, `SVD` & `word2vec` abstract over the term-feature associations that underlie semantic relationships.  Visualizing the network structure of semantically related terms based in actual co-occurrence can help shed light on the sources of relatedness in ways that, eg, latent dimensions cannot.
 
@@ -186,11 +178,8 @@ network %>%
 ```
 
 
-   
-
-<br>
-
-Another take using the word association data set, `lvdr_association_sparse`:
+  
+**Another take** using the word association data set, `lvdr_association_sparse`:
 
 
 ```{r fig.height=7, message=FALSE, warning=FALSE}
