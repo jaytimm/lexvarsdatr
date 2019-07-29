@@ -176,7 +176,7 @@ network %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  ggtitle('sotu co-occurrence')
+  ggtitle('sotu co-occurrence network') +
   theme(legend.position = "none")
 ```
 
@@ -209,7 +209,7 @@ network2 %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  ggtitle('word association norms') +
+  ggtitle('word association norms network') +
   theme(legend.position = "none")
 ```
 

@@ -173,16 +173,16 @@ lexvarsdatr::lvdr_get_closest(tfm = cos_sim,
 
 | term    | feature       |       cooc|
 |:--------|:--------------|----------:|
-| SCIENCE | RESEARCH      |  0.5653951|
-| SCIENCE | TECHNOLOGY    |  0.5614557|
-| SCIENCE | SCIENTIFIC    |  0.4302111|
-| SCIENCE | SPACE         |  0.4026944|
-| SCIENCE | TECHNOLOGICAL |  0.3857579|
-| TARIFF  | TAXATION      |  0.4863074|
-| TARIFF  | AD            |  0.4095870|
-| TARIFF  | PROTECTIVE    |  0.4077880|
-| TARIFF  | REVENUE       |  0.3908575|
-| TARIFF  | IMPORTATIONS  |  0.3863092|
+| SCIENCE | RESEARCH      |  0.5653915|
+| SCIENCE | TECHNOLOGY    |  0.5613850|
+| SCIENCE | SCIENTIFIC    |  0.4302308|
+| SCIENCE | SPACE         |  0.4026960|
+| SCIENCE | TECHNOLOGICAL |  0.3858248|
+| TARIFF  | TAXATION      |  0.4862957|
+| TARIFF  | AD            |  0.4095632|
+| TARIFF  | PROTECTIVE    |  0.4077968|
+| TARIFF  | REVENUE       |  0.3908450|
+| TARIFF  | IMPORTATIONS  |  0.3863288|
 
 ### § Build network structure
 
@@ -245,20 +245,11 @@ network %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  ggtitle('sotu co-occurrence')
-```
-
-![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
-
-``` r
+  ggtitle('sotu co-occurrence network') +
   theme(legend.position = "none")
 ```
 
-    ## List of 1
-    ##  $ legend.position: chr "none"
-    ##  - attr(*, "class")= chr [1:2] "theme" "gg"
-    ##  - attr(*, "complete")= logi FALSE
-    ##  - attr(*, "validate")= logi TRUE
+![](README_files/figure-markdown_github/unnamed-chunk-10-1.png)
 
 **Another take** using the word association data set,
 `lvdr_association_sparse`:
@@ -287,7 +278,7 @@ network2 %>%
                              filter = group == 'feature'), 
                              repel = TRUE, size = 3) +
   ggthemes::scale_color_stata()+
-  ggtitle('word association norms') +
+  ggtitle('word association norms network') +
   theme(legend.position = "none")
 ```
 
