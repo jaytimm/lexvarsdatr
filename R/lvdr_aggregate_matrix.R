@@ -2,7 +2,7 @@
 #'
 #' These functions make life easier when querying the behavioral datasets.
 #'
-#' @name lvdr_extract_network
+#' @name lvdr_aggregate_matrix
 #' @param form A word or affix
 #' @param type A part-of-speach (of universal variety) or "PRE"|"SUF"
 #' @return A data.frame
