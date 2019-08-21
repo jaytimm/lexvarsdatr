@@ -6,7 +6,7 @@
 #' @param form A word or affix
 #' @param type A part-of-speach (of universal variety) or "PRE"|"SUF"
 #' @return A data.frame
-#' @import Matrix.utils
+#' @import Matrix.utils Matrix
 #'
 #'
 #' @export
@@ -26,7 +26,7 @@ lvdr_aggregate_matrix <- function(tfm,
                                           groupings = sort(group),
                                           fun = fun)
 
-  Matrix.utils::aggregate.Matrix(x = t(tfm1),
+  Matrix.utils::aggregate.Matrix(x = Matrix::t(tfm1),
                                  groupings = sort(group),
                                  fun = fun)
 
