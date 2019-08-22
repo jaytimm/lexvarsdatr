@@ -26,9 +26,11 @@ lvdr_aggregate_matrix <- function(tfm,
                                           groupings = sort(group),
                                           fun = fun)
 
-  Matrix.utils::aggregate.Matrix(x = Matrix::t(tfm1),
-                                 groupings = sort(group),
-                                 fun = fun)
+  tfm1 <- Matrix.utils::aggregate.Matrix(x = Matrix::t(tfm1),
+                                         groupings = sort(group),
+                                         fun = fun)
+
+  t(tfm1)
 
   ## Assumes x~y == y~x, which we have always been assuming.
 }
