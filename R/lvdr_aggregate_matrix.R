@@ -22,7 +22,7 @@ lvdr_aggregate_matrix <- function(tfm,
   # tfm1 <- tfm1[order(rownames(tfm1)), ]
 
   ##For columns
-  tfm1  <- Matrix.utils::aggregate.Matrix(x = tfm1, ## We can sort here, presumably.
+  tfm1  <- Matrix.utils::aggregate.Matrix(x = tfm, ## We can sort here, presumably.
                                           groupings = group,
                                           fun = fun)
 
