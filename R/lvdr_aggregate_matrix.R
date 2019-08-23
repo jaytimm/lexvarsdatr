@@ -17,12 +17,8 @@ lvdr_aggregate_matrix <- function(tfm,
                                   group,
                                   fun = 'sum') {
 
-  ## Alpha order tfm terms/features
-  # tfm1 <-  tfm[, order(colnames(tfm))]
-  # tfm1 <- tfm1[order(rownames(tfm1)), ]
-
   ##For columns
-  tfm1  <- Matrix.utils::aggregate.Matrix(x = tfm, ## We can sort here, presumably.
+  tfm1  <- Matrix.utils::aggregate.Matrix(x = tfm,
                                           groupings = group,
                                           fun = fun)
 
@@ -31,6 +27,5 @@ lvdr_aggregate_matrix <- function(tfm,
                                          fun = fun)
 
   Matrix::t(tfm1)
-
   ## Assumes x~y == y~x, which we have always been assuming.
 }
