@@ -26,6 +26,7 @@ lvdr_aggregate_matrix <- function(tfm,
                                          groupings = group,
                                          fun = fun)
 
+
   Matrix::t(tfm1)
   ## Assumes x~y == y~x, which we have always been assuming.
 }
