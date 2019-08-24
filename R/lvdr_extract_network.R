@@ -13,12 +13,13 @@
 #' @rdname lvdr_extract_network
 
 lvdr_extract_network <- function (tfm,
-                                target,
-                                n = 10) {
+                                  target,
+                                  n = 10,
+                                  vocab = NULL) {
 
   nodes <- lexvarsdatr::lvdr_get_closest(tfm = tfm,
-                               target = target,
-                               n = n)
+                                         target = target,
+                                         n = n)
 
   nodes <- nodes[!duplicated(nodes[,c('feature')]),]
   nodes <- subset(nodes, !feature %in% target)
@@ -29,11 +30,17 @@ lvdr_extract_network <- function (tfm,
                             cooc = xx))
   nodes$group <- ifelse(nodes$feature %in% target, 'term', 'feature')
 
+  ##
   edges <- lexvarsdatr::lvdr_get_closest(tfm = tfm,
-                               target = unique(nodes$feature))
+                                         target = unique(nodes$feature))
 
   #friends of friends.
   edges <- subset(edges, feature %in% unique(nodes$feature))
+
+  if (vocab == NULL) {} else {
+    edges <- subset(edges, feature %in% unique(vocab))
+  }
+
 
   #Extract edges in which nodes are a part. To force inclusion.
   edges_nodes <- subset(edges, term %in% target)
