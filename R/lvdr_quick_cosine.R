@@ -19,7 +19,7 @@ lvdr_quick_cosine <- function (tfm,
                                n = 10,
                                vocab = NULL) {
 
-  if (is.na(vocab)) {} else {
+  if (is.null(vocab)) {} else {
     tfm <- tfm[rownames(tfm) %in% c(target, unique(vocab)),]
   }
 
