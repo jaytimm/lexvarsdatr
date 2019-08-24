@@ -18,11 +18,18 @@ lvdr_extract_network <- function (tfm,
                                   vocab = NULL) {
 
   nodes <- lexvarsdatr::lvdr_get_closest(tfm = tfm,
-                                         target = target,
-                                         n = n)
+                                         target = target#, n = n
+                                         )
 
   nodes <- nodes[!duplicated(nodes[,c('feature')]),]
   nodes <- subset(nodes, !feature %in% target)
+
+  if (is.null(vocab)) {} else {
+    nodes <- subset(nodes, feature %in% unique(vocab))
+  }
+
+  nodes <- nodes[, head(.SD, n), by=term]
+
   xx <- max(nodes$cooc)
   nodes <- rbind(nodes,
                  data.frame(term = target,
@@ -37,7 +44,7 @@ lvdr_extract_network <- function (tfm,
   #friends of friends.
   edges <- subset(edges, feature %in% unique(nodes$feature))
 
-  if (vocab == NULL) {} else {
+  if (is.null(vocab)) {} else {
     edges <- subset(edges, feature %in% unique(vocab))
   }
 
@@ -47,7 +54,7 @@ lvdr_extract_network <- function (tfm,
 
   edges <- edges[order(-edges$cooc), ]
 
-  #Per node, find n*1.5 most prevalent associations.
+  #Per node, find n most prevalent associations.
   edges <- edges[, head(.SD, n), by=term]
 
   edges <- rbind(edges, edges_nodes)
