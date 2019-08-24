@@ -15,7 +15,7 @@
 
 lvdr_aggregate_matrix <- function(tfm,
                                   group,
-                                  fun = 'sum') {
+                                  fun = 'sum') {  ## Need to add column/row/both parameter.
 
   ##For columns
   tfm1  <- Matrix.utils::aggregate.Matrix(x = tfm,

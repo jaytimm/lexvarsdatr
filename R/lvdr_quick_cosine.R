@@ -20,7 +20,7 @@ lvdr_quick_cosine <- function (tfm,
                                vocab = NULL) {
 
   if (is.na(vocab)) {} else {
-    tfm <- tfm[rownames(tfm) %in% unique(vocab),]
+    tfm <- tfm[rownames(tfm) %in% c(target, unique(vocab)),]
   }
 
   cos_sim <- text2vec::sim2(x = tfm,
