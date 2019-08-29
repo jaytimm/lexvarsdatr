@@ -4,7 +4,8 @@
 \alias{lvdr_quick_cosine}
 \title{Query CELEX database}
 \usage{
-lvdr_quick_cosine(tfm, target, n = 10, vocab = NULL)
+lvdr_quick_cosine(tfm, target, n = 10, vocab = NULL,
+  include_targ = FALSE)
 }
 \arguments{
 \item{form}{A word or affix}

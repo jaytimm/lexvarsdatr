@@ -17,7 +17,8 @@
 lvdr_quick_cosine <- function (tfm,
                                target,
                                n = 10,
-                               vocab = NULL) {
+                               vocab = NULL,
+                               include_targ = FALSE) {
 
   if (is.null(vocab)) {} else {
     tfm <- tfm[rownames(tfm) %in% c(target, unique(vocab)),]
@@ -36,5 +37,6 @@ lvdr_quick_cosine <- function (tfm,
                    stringsAsFactors = FALSE,
                    row.names = NULL)
 
-  subset(y1, term1 != term2)
+  if(include_targ) {y1 <- subset(y1, term1 != term2)}
+  return(y1)
 }

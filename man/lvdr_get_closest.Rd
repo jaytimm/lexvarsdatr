@@ -5,7 +5,7 @@
 \alias{lvdr_get_closest}
 \title{Query CELEX database}
 \usage{
-lvdr_get_closest(tfm, target = NULL, n = NULL, include_targ = FALSE)
+lvdr_get_closest(tfm, target = NULL, n = NULL)
 }
 \arguments{
 \item{form}{A word or affix}

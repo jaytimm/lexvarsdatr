@@ -14,8 +14,7 @@
 
 lvdr_get_closest <- function (tfm,
                               target = NULL,
-                              n = NULL,
-                              include_targ = FALSE) { #y = NULL -> full collocate data frame.
+                              n = NULL) { #y = NULL -> full collocate data frame.
   tfm <- as(tfm, 'dgCMatrix')
 
   if(is.null(target)) {ft <- tfm} else {
@@ -34,7 +33,7 @@ lvdr_get_closest <- function (tfm,
   if(is.null(n)){} else {
     nodes <- nodes[, head(.SD, n), by=term]}
 
-  if(include_targ) {nodes <- subset(nodes, term != feature)}
+  nodes <- subset(nodes, term != feature)
 
   return(nodes)
 }
